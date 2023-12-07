@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Foodplatter會員資料編輯</title>
+
+    <!--此模板的自訂字體-->
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!--此模板的自訂樣式-->
+    <link href="css/sb-admin-2.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+
+      .card-body{
+        & img{
+          width: 400px;
+          height: 400px;
+        }
+      }
+
+      .pic{
+        & img{
+          width: 50px;
+          height: 50px;
+
+        }
+        
+      }
+      
+    </style>
+
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper" class="">
+      <!--側邊欄-->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+      >
+        <!--側邊欄-品牌-->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="index.html"
+        >
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="bi bi-slack"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">foodplatter</div>
+        </a>
+        
+        <!-- 會員頭貼 -->
+        <img
+          class="img-profile rounded-circle m-5"
+          src="images/head/1.svg"
+        />
+
+        <hr class="sidebar-divider my-0" />
+
+        <!-- nav -->
+        <li class="nav-item active">
+          <a class="nav-link" href="user_index.html">
+            <i class="bi bi-house"></i>
+            <span>會員資料</span>
+          </a>
+        </li>
+
+        <hr class="sidebar-divider" />
+        
+        <li class="nav-item">
+          <a class="nav-link" href="user_order.html">
+            <i class="bi bi-file-earmark"></i>
+            <span>訂單</span></a
+          >
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="user_coupon.html">
+            <i class="bi bi-ticket-perforated"></i>
+            <span>優惠券</span></a
+          >
+        </li>
+
+        <!--側邊欄切換器（側邊欄）-->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <!--側邊欄尾-->
+
+
+      <!--內容-->
+      <div id="content-wrapper" class="d-flex flex-column">
+        
+        <div id="content">
+          <!--頂欄-->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <!--側邊欄切換（頂欄）-->
+            <button
+              id="sidebarToggleTop"
+              class="btn btn-link d-md-none rounded-circle mr-3"
+            >
+              <i class="fa fa-bars"></i>
+            </button>
+
+            <!--中間頂欄-->
+            <ul class="navbar-nav ml-auto">
+              <!--導航項目 -搜尋下拉式選單（僅 XS 可見）-->
+              <li class="nav-item dropdown no-arrow d-sm-none">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="searchDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-search fa-fw"></i>
+                </a>
+                <!--下拉式選單 -訊息-->
+                <div
+                  class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                  aria-labelledby="searchDropdown"
+                >
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control bg-light border-0 small"
+                        placeholder="Search for..."
+                        aria-label="Search"
+                        aria-describedby="basic-addon2"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+
+              <!--導航項目 -使用者資訊-->
+              <li class="nav-item dropdown no-arrow d-flex">
+                <div class="nav-link" href="#" id="">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                    >Hello!</span
+                  >
+                  <img
+                    class="img-profile rounded-circle"
+                    src="images/head/1.svg"
+                  />
+                </div>
+
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <a class="nav-link" href="user_signin.html">
+                  <i
+                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                  ></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- 頂欄結束 -->
+
+
+
+          <!-- 頁面內容開始 -->
+          <div class="container-fluid">
+            
+            <div
+              class="d-sm-flex align-items-center justify-content-start mb-4"
+            >
+              <a class="btn btn-info mr-3" href="user_index.html"><i class="bi bi-arrow-left"></i></a>
+              <h1 class="h3 mb-0 text-gray-800 ">詳細資訊</h1>
+              
+            </div>
+
+            <div class="row">
+              
+              <div class="col-12">
+                <div class="card shadow mb-4">
+                  
+                  <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                  >
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      會員資料修改
+                    </h6>
+                    
+                  </div>
+                  
+                  <div class="card-body row">
+
+                    <!-- 大頭貼 -->
+                    <div class="col-4">
+                      <img
+                    class="img-profile rounded-circle "
+                    src="images/head/1.svg"/>
+
+                    <h6 class="h6 pt-5">點擊即可變換頭貼</ㄋ>
+
+                    <div class="thumb d-flex justify-content-around my-3">
+                      <div class="pic mx-2">
+                        <img
+                          class="object-fit-cover"
+                          data-color="1"
+                          src="images/head/1.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="pic mx-2">
+                        <img
+                          class="object-fit-cover"
+                          data-color="2"
+                          src="images/head/2.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="pic ratio ratio-1x1 mx-2">
+                        <img
+                          class="object-fit-cover"
+                          data-color="3"
+                          src="images/head/3.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="pic ratio ratio-1x1 mx-2">
+                        <img
+                          class="object-fit-cover"
+                          data-color="4"
+                          src="images/head/4.svg"
+                          alt=""
+                        />
+                      </div>
+
+                      <div class="pic ratio ratio-1x1 mx-2">
+                        <img
+                          class="object-fit-cover"
+                          data-color="4"
+                          src="images/head/5.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+
+                  </div>
+
+                    
+
+                  <!-- 會員資訊修改 -->
+                  <form class="col-8" action="" method="post">
+                    <table class="table">
+                        <input type="hidden" name="id" value="">
+                        
+                        <tr>
+                            <th>姓名</th>
+                            <td>
+                                <input class="form-control" type="text" name="name" value="">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>生理性別(非必填)</th>
+                            <td class="d-flex">
+                              <div class="form-check mr-5">
+                                <input class="form-check-input" type="radio" name="sex" id="sex">
+                                <label class="form-check-label" for="sex">
+                                  生理男
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" id="sex">
+                                <label class="form-check-label" for="sex">
+                                  生理女
+                                </label>
+                              </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>生日(非必填)</th>
+                            <td>
+                              <input type="date" class="form-control" name="birth">
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <th>信箱
+                            </th>
+                            <td><input class="form-control" type="text" name="email" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>電話</th>
+                            <td><input class="form-control" type="text" name="phone" value=""></td>
+                        </tr>
+
+                        <tr>
+                            <th>密碼</th>
+                            <td>
+                                <input class="form-control" type="text" name="password" value="">
+                            </td>
+                        </tr>
+
+                        <tr>
+                          <th>確認密碼</th>
+                          <td>
+                              <input class="form-control" type="text" name="password" value="">
+                          </td>
+                      </tr>
+                        
+
+                        <tr>
+                            <th>地址(非必填)</th>
+                            <td>
+                              縣市
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected>請選擇縣市</option>
+                                <option value="1">基隆市</option>
+                                <option value="2">台北市</option>
+                                <option value="3">新北市</option>
+                                
+
+                              </select>
+                              區域
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected>請選擇鄉鎮市區</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                              <input class="form-control mt-3" type="text" name="address" value="">
+                              <small>若有填寫，未來將根據您的所在地，更快速的推薦餐廳給您!</small>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>信用卡(非必填)</th>
+                            <td>
+                                <input class="form-control" type="text" name="credit_card" value="">
+                                <small>預設線上付款，結帳更快速!</small>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <div class="py-2 d-flex justify-content-end">
+                        <div>
+                          <a class="btn btn-info text-white" href="index.html">取消</a>
+                          <button class="btn btn-info text-white" type="submit">
+                              儲存
+                          </button>
+                        
+                        
+                        </div>
+                        
+                    </div>
+                </form>
+                    
+                  </div>
+                </div>
+              </div>
+
+              
+              
+            </div>
+
+            <!-- Content Row -->
+            
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Foodplatter &copy; 2023</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!--內容包裝結束-->
+    </div>
+    <!--頁尾包裝器-->
+
+    <!--捲動到頂部按鈕-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!--註銷模式-->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+  </body>
+</html>
