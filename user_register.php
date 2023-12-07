@@ -111,34 +111,34 @@
         <div class="text-center">
             <h1 class="mb-4">加入foodplatter會員</h1>
         </div>
-        <form class="user">
+        <form class="user" action="UserRegister.php" method="post">
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                    <input type="text" class="form-control form-control-user" id="name" name="name"
                         placeholder="姓名">
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName"
+                    <input type="text" class="form-control form-control-user" id="phone" name="phone"
                         placeholder="電話">
                 </div>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                <input type="email" class="form-control form-control-user" id="email" name="email"
                     placeholder="信箱">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="password" class="form-control form-control-user"
-                        id="exampleInputPassword" placeholder="密碼">
+                        id="password" name="password" placeholder="密碼">
                 </div>
                 <div class="col-sm-6">
                     <input type="password" class="form-control form-control-user"
-                        id="exampleRepeatPassword" placeholder="確認密碼">
+                        id="repassword" name="repassword" placeholder="確認密碼">
                 </div>
             </div>
-            <a href="login.html" class="btn btn-user btn-block">
+            <button type="submit" class="btn btn-user btn-block">
                 <span class="h6">註冊會員</span>
-            </a>
+            </button>
             
         </form>
         <hr>
