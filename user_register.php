@@ -1,3 +1,6 @@
+<?php
+require_once("db-connect.php");
+?>
 <!doctype html>
 <html lang="en">
 
@@ -93,6 +96,19 @@
       background: var(--main-pink-hover);
       border:var(--main-pink-hover);
     }
+
+    .bg{
+        background: #00000060;
+        width: 100vw;
+        height: 100vh;
+        top:0;
+        left:0;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     
 
 
@@ -104,7 +120,8 @@
 </head>
 
 <body>
-<div class="col-lg-4">
+  <div class="bg">
+  <div class="col-lg-4">
   <div class="card o-hidden border-0 shadow-lg my-5">
     <div class="card-body p-0">
       <div class="p-5">
@@ -154,6 +171,9 @@
   </div>
     
 </div>
+
+  </div>
+
   
   
   

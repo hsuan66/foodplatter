@@ -54,6 +54,46 @@
   </head>
 
   <body id="page-top">
+    <!-- 登出彈出視窗 -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">確定要登出嗎?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            如果您正準備登出，請點選下面的「登出」。
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              取消
+            </button>
+            <a class="btn btn-primary" href="login.php">登出</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 登出彈出視窗結束 -->
+
     <div id="wrapper" class="">
       <!--側邊欄-->
       <ul
@@ -82,8 +122,8 @@
         <!-- nav -->
         <li class="nav-item active">
           <a class="nav-link" href="user_index.html">
-            <i class="bi bi-house"></i>
-            <span>會員資料</span>
+            
+            <span><i class="bi bi-house"></i>會員資料</span>
           </a>
         </li>
 
@@ -91,15 +131,15 @@
         
         <li class="nav-item">
           <a class="nav-link" href="user_order.html">
-            <i class="bi bi-file-earmark"></i>
-            <span>訂單</span></a
+            
+            <span><i class="bi bi-file-earmark"></i>訂單</span></a
           >
         </li>
         
         <li class="nav-item">
           <a class="nav-link" href="user_coupon.html">
-            <i class="bi bi-ticket-perforated"></i>
-            <span>優惠券</span></a
+            
+            <span><i class="bi bi-ticket-perforated"></i>優惠券</span></a
           >
         </li>
 
@@ -180,7 +220,10 @@
 
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                <a class="nav-link" href="user_signin.html">
+                <a class="nav-link"
+                href="#"
+                data-toggle="modal"
+                data-target="#logoutModal">
                   <i
                     class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                   ></i>
@@ -198,7 +241,7 @@
             <div
               class="d-sm-flex align-items-center justify-content-start mb-4"
             >
-              <a class="btn btn-info mr-3" href="user_index.html"><i class="bi bi-arrow-left"></i></a>
+              <a class="btn btn-primary mr-3" href="user_index.html"><i class="bi bi-arrow-left"></i></a>
               <h1 class="h3 mb-0 text-gray-800 ">詳細資訊</h1>
               
             </div>
@@ -338,7 +381,7 @@
                         
 
                         <tr>
-                            <th>地址(非必填)</th>
+                            <th>地址(非必填)<br><small>若有填寫，未來將根據您的所在地，<br>更快速的推薦餐廳給您!</small></th>
                             <td>
                               縣市
                               <select class="form-select" aria-label="Default select example">
@@ -356,24 +399,42 @@
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                               </select>
+                              詳細地址:
                               <input class="form-control mt-3" type="text" name="address" value="">
-                              <small>若有填寫，未來將根據您的所在地，更快速的推薦餐廳給您!</small>
+                              
                             </td>
                         </tr>
 
                         <tr>
-                            <th>信用卡(非必填)</th>
+                            <th>信用卡(非必填)<br><small>預設線上付款，結帳更快速!</small></th>
                             <td>
+                                <small>信用卡卡號</small>
                                 <input class="form-control" type="text" name="credit_card" value="">
-                                <small>預設線上付款，結帳更快速!</small>
+                                <div class="row">
+                                  <div class="col-6">
+                                    <small>到期日</small>
+                                    <input class="form-control" type="text" name="valid-thru" value="">
+  
+                                  </div>
+                                  <div class="col-6">
+                                    <small>安全碼</small>
+                                    <input class="form-control" type="text" name="valid-thru" value="">
+  
+                                  </div>
+
+                                </div>
+                                
+                                
+                                
+                                
                             </td>
                         </tr>
                         
                     </table>
                     <div class="py-2 d-flex justify-content-end">
                         <div>
-                          <a class="btn btn-info text-white" href="index.html">取消</a>
-                          <button class="btn btn-info text-white" type="submit">
+                          <a class="btn btn-secondary text-white" href="index.html">取消</a>
+                          <button class="btn btn-primary text-white" type="submit">
                               儲存
                           </button>
                         

@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "admin";
 $password = "12345";
-$dbname = "mydb";
+$dbname = "myfood";
     
 // Create connection
 // 把這些資料丟進去，並建立資料庫，丟進物件

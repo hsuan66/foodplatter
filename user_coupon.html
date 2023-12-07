@@ -33,6 +33,45 @@
   </head>
 
   <body id="page-top">
+    <!-- 登出彈出視窗 -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">確定要登出嗎?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            如果您正準備登出，請點選下面的「登出」。
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              取消
+            </button>
+            <a class="btn btn-primary" href="login.php">登出</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 登出彈出視窗結束 -->
     <div id="wrapper" class="">
       <!--側邊欄-->
       <ul
@@ -160,7 +199,10 @@
 
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                <a class="nav-link" href="#">
+                <a class="nav-link"
+                href="#"
+                data-toggle="modal"
+                data-target="#logoutModal">
                   <i
                     class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                   ></i>

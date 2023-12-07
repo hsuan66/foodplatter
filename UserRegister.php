@@ -18,7 +18,7 @@ var_dump($email);
 date_default_timezone_set('Asia/Taipei');
 
 
-// echo "$email, $name, $password, $repassword";
+echo "$email, $name, $password, $repassword";
 
 if(empty($phone)||empty($email)||empty($name)||empty($password)||empty($repassword)){
     echo "請輸入必填欄位";
@@ -44,12 +44,11 @@ if($rowCount>0){
 
 // 密碼加密
 $password=md5($password);
-
 $time=date('Y-m-d H:i:s');
 
 // 寫入資料
-$sql="INSERT INTO users (name, password, email,create_at, valid)
-VALUES ('$name', '$password', '$email','$time',1)";
+$sql="INSERT INTO users (user_name, password, user_phone, user_email, created_at, user_valid, modified_at)
+VALUES ('$name', '$password', '$phone', '$email', '$time', 1, '$time')";
 
 // valid也可以做會員等級
 
