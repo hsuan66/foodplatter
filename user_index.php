@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// 只要沒有user資料，就要回到燈入夜面
+if(!isset($_SESSION["user"])){
+    header("location:user_signin.php");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,7 +87,7 @@
             >
               取消
             </button>
-            <a class="btn btn-primary" href="login.php">登出</a>
+            <a class="btn btn-primary" href="UserSignout.php">登出</a>
           </div>
         </div>
       </div>

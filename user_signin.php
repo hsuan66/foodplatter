@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+
+// 如果已經登入就不應該再看到sign這一頁，所以就會把這頁導向dashboard
+if(isset($_SESSION["user"])){
+    header("location:user_index.html");
+    exit;
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -22,6 +34,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+
     <style>
 
     :root{
@@ -42,14 +59,8 @@
         
     }
 
-    .overlay {
-        background-color: rgba(0, 0, 0, 0.5); /* 50% 透明的白色背景 */
-        width: 100vw; /* 使覆蓋層擴展至整個容器寬度 */
-        height: 100vh; /* 使覆蓋層擴展至整個容器高度 */
-    }
-
     .card {
-        background: rgb(20,64,64,0.8);
+        background: rgb(20,64,64,0.9);
         max-width: 800px;
         margin: auto;
         padding: 40px;
@@ -73,22 +84,18 @@
       font-size: 30px;
       font-family: 'Noto Sans TC', sans-serif;
       color:#fff;
-      /* padding: 20px; */
-      /* background: rgba(230, 214, 201); */
+      
 
     }
     & a:hover{
       color:#fff;
       border:rgba(230, 214, 201, 0.5);
-      /* background: rgba(230, 214, 201, 0.5); */
-      /* padding: 20px; */
     }
 
     & a:active{
       color:#fff;
       border:rgba(230, 214, 201, 0.5);
-      /* background: rgba(230, 214, 201, 0.5); */
-      /* padding: 20px; */
+      
     }
 
     .btn{
@@ -103,7 +110,7 @@
     }
 
     .bg{
-        background: #00000060;
+        background: #00000040;
         width: 100vw;
         height: 100vh;
         top:0;
@@ -124,36 +131,49 @@
 
 </head>
 
-<body class="overlay">
+<body>
   <div class="bg">
     <div class="col-lg-4">
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
           <div class="p-5">
               <div class="text-center">
+                  <h1 class="py-2"><i class="bi bi-slack"></i></h1>
+                 
                   <h1 class="mb-4 title">歡迎回來 foodplatter!</h1>
               </div>
-              <form class="user">
+              <?php
+              if(isset($_SESSION["error"]["times"]) && $_SESSION["error"]["times"]>5):
+              ?>
+                  <div class="text-warning text-center">錯誤次數已達上限，請稍後再試</div>
+              <?php else:?>
+              <form class="user" action="UserSignin.php" method="post">
                   <div class="form-group">
                       <input type="email" class="form-control form-control-user"
-                          id="exampleInputEmail" aria-describedby="emailHelp"
-                          placeholder="請輸入電子郵件地址...">
+                          id="email" name="email" aria-describedby="emailHelp"
+                          placeholder="請輸入電子郵件地址">
                   </div>
                   <div class="form-group">
                       <input type="password" class="form-control form-control-user"
-                          id="exampleInputPassword" placeholder="請輸入密碼">
+                          id="password" name="password" placeholder="請輸入密碼">
                   </div>
+                  <?php
+                  if(isset($_SESSION["error"]["message"])):?>
+                  <div class="text-warning"><?php echo $_SESSION["error"]["message"] ?></div>
+                  <?php endif;?>
                   <div class="form-group">
                       <div class="custom-control custom-checkbox">
                           <input type="checkbox" class="custom-control-input" id="customCheck">
                           <label class="custom-control-label" for="customCheck">記住帳號</label>
                       </div>
                   </div>
-                  <a href="index.html" class="btn btn-user btn-block">
+                  <button class="btn btn-user btn-block" type="submit">
                       <span class="h6">登入</span>
-                  </a>
+                  </button>
                   
               </form>
+              <?php endif;?>
+              
               <hr>
               <div class="text-center">
                   <a class="small" href="user_signin_forget.html">忘記密碼?</a>
@@ -169,6 +189,9 @@
     </div>
 
   </div>
+  <?php
+    unset($_SESSION["error"]["message"]);
+  ?>
 
   
   

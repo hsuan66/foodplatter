@@ -1,5 +1,13 @@
 <?php
-require_once("db-connect.php");
+session_start();
+
+// 之後再加上
+// 如果已經登入就不應該再看到sign這一頁，所以就會把這頁導向dashboard
+// if(isset($_SESSION["user"])){
+//   header("location:dashboard.php");
+//   exit;
+// }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,6 +33,11 @@ require_once("db-connect.php");
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+
     <style>
 
     :root{
@@ -44,7 +57,7 @@ require_once("db-connect.php");
     }
 
     .card {
-        background: rgb(20,64,64,0.8);
+        background: rgb(20,64,64,0.9);
         max-width: 800px;
         margin: auto;
         padding: 40px;
@@ -72,6 +85,7 @@ require_once("db-connect.php");
       /* background: rgba(230, 214, 201); */
 
     }
+
     & a:hover{
       color:#fff;
       border:rgba(230, 214, 201, 0.5);
@@ -98,7 +112,7 @@ require_once("db-connect.php");
     }
 
     .bg{
-        background: #00000060;
+        background: #00000040;
         width: 100vw;
         height: 100vh;
         top:0;
@@ -126,6 +140,7 @@ require_once("db-connect.php");
     <div class="card-body p-0">
       <div class="p-5">
         <div class="text-center">
+            <h1 class="py-2"><i class="bi bi-slack"></i></h1>
             <h1 class="mb-4">加入foodplatter會員</h1>
         </div>
         <form class="user" action="UserRegister.php" method="post">
@@ -153,6 +168,10 @@ require_once("db-connect.php");
                         id="repassword" name="repassword" placeholder="確認密碼">
                 </div>
             </div>
+            <?php
+                if(isset($_SESSION["error"]["message"])):?>
+                <div class="text-warning py-2"><?php echo $_SESSION["error"]["message"] ?></div>
+                <?php endif;?>
             <button type="submit" class="btn btn-user btn-block">
                 <span class="h6">註冊會員</span>
             </button>
@@ -174,12 +193,12 @@ require_once("db-connect.php");
 
   </div>
 
-  
-  
-  
-  
+  <!-- 每次重整就清掉錯誤訊息 -->
+  <?php
+    unset($_SESSION["error"]["message"])
+  ?>
 
-  
+
 </body>
 
 </html>
