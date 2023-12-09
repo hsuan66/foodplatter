@@ -1,3 +1,142 @@
+<?php
+session_start();
+
+// 只要沒有user資料，就要回到燈入夜面
+if(!isset($_SESSION["user"])){
+    header("location:user_signin.php");
+    exit;
+}
+
+require_once("db-connect.php");
+
+$id=$_SESSION["user"]["user_id"];
+
+
+$sql="SELECT * FROM users WHERE user_id=$id AND user_valid=1";
+
+$result=$conn->query($sql);
+$userCount=$result->num_rows;
+$row=$result->fetch_assoc();
+
+// 各縣市資料轉換
+$sqlTaipei="SELECT * FROM cities
+WHERE cities < 117";
+$resultTaipei=$conn->query($sqlTaipei);
+$rowTaipei=$resultTaipei->fetch_all(MYSQLI_ASSOC);
+
+
+$sqlNewTaipei="SELECT * FROM cities
+WHERE 206 < cities && cities < 254";
+$resultNewTaipei=$conn->query($sqlNewTaipei);
+$rowNewTaipei=$resultNewTaipei->fetch_all(MYSQLI_ASSOC);
+
+$sqlKeelung="SELECT * FROM cities
+WHERE 199 < cities && cities < 206";
+$resultKeelung=$conn->query($sqlKeelung);
+$rowKeelung=$resultKeelung->fetch_all(MYSQLI_ASSOC);
+
+$sqlKeelung="SELECT * FROM cities
+WHERE 200 < cities && cities < 206";
+$resultKeelung=$conn->query($sqlKeelung);
+$rowKeelung=$resultKeelung->fetch_all(MYSQLI_ASSOC);
+
+$sqlYilan="SELECT * FROM cities
+WHERE 259 < cities && cities < 291";
+$resultYilan=$conn->query($sqlYilan);
+$rowYilan=$resultYilan->fetch_all(MYSQLI_ASSOC);
+
+$sqlHsinchu="SELECT * FROM cities
+WHERE 301 < cities && cities < 316";
+$resultHsinchu=$conn->query($sqlHsinchu);
+$rowHsinchu=$resultHsinchu->fetch_all(MYSQLI_ASSOC);
+
+$sqlHsinchuCity="SELECT * FROM cities
+WHERE cities === 300";
+$resultHsinchuCity=$conn->query($sqlHsinchuCity);
+$rowHsinchuCity=$resultHsinchuCity->fetch_all(MYSQLI_ASSOC);
+
+$sqlTaoyan="SELECT * FROM cities
+WHERE 319 < cities && cities < 339";
+$resultTaoyan=$conn->query($sqlTaoyan);
+$rowTaoyan=$resultTaoyan->fetch_all(MYSQLI_ASSOC);
+
+$sqlMiaoli="SELECT * FROM cities
+WHERE 349 < cities && cities < 370";
+$resultMiaoli=$conn->query($sqlMiaoli);
+$rowMiaoli=$resultMiaoli->fetch_all(MYSQLI_ASSOC);
+
+$sqlTaichung="SELECT * FROM cities
+WHERE 399 < cities && cities < 440";
+$resultTaichung=$conn->query($sqlTaichung);
+$rowTaichung=$resultTaichung->fetch_all(MYSQLI_ASSOC);
+
+$sqlChanghua="SELECT * FROM cities
+WHERE 499 < cities && cities < 531";
+$resultChanghua=$conn->query($sqlChanghua);
+$rowChanghua=$resultChanghua->fetch_all(MYSQLI_ASSOC);
+
+$sqlNantou="SELECT * FROM cities
+WHERE 539 < cities && cities < 559";
+$resultNantou=$conn->query($sqlNantou);
+$rowNantou=$resultNantou->fetch_all(MYSQLI_ASSOC);
+
+$sqlChiayi="SELECT * FROM cities
+WHERE 601 < cities && cities < 626";
+$resultChiayi=$conn->query($sqlChiayi);
+$rowChiayi=$resultChiayi->fetch_all(MYSQLI_ASSOC);
+
+$sqlChiayiCity="SELECT * FROM cities
+WHERE cities === 600";
+$resultChiayiCity=$conn->query($sqlChiayiCity);
+$rowChiayiCity=$resultChiayiCity->fetch_all(MYSQLI_ASSOC);
+
+$sqlYunlin="SELECT * FROM cities
+WHERE 629 < cities && cities < 656";
+$resultYunlin=$conn->query($sqlYunlin);
+$rowYunlin=$resultYunlin->fetch_all(MYSQLI_ASSOC);
+
+$sqlTainan="SELECT * FROM cities
+WHERE 699 < cities && cities < 746";
+$resultTainan=$conn->query($sqlTainan);
+$rowTainan=$resultTainan->fetch_all(MYSQLI_ASSOC);
+
+$sqlKaohsiung="SELECT * FROM cities
+WHERE 799 < cities && cities < 853";
+$resultKaohsiung=$conn->query($sqlKaohsiung);
+$rowKaohsiung=$resultKaohsiung->fetch_all(MYSQLI_ASSOC);
+
+$sqlPenghu="SELECT * FROM cities
+WHERE 879 < cities && cities < 886";
+$resultPenghu=$conn->query($sqlPenghu);
+$rowPenghu=$resultPenghu->fetch_all(MYSQLI_ASSOC);
+
+$sqlPingtung="SELECT * FROM cities
+WHERE 899 < cities && cities < 948";
+$resultPingtung=$conn->query($sqlPingtung);
+$rowPingtung=$resultPingtung->fetch_all(MYSQLI_ASSOC);
+
+$sqlTaitung="SELECT * FROM cities
+WHERE 949 < cities && cities < 967";
+$resultTaitung=$conn->query($sqlTaitung);
+$rowTaitung=$resultTaitung->fetch_all(MYSQLI_ASSOC);
+
+$sqlHualiang="SELECT * FROM cities
+WHERE 969 < cities && cities < 984";
+$resultHualiang=$conn->query($sqlHualiang);
+$rowHualiang=$resultHualiang->fetch_all(MYSQLI_ASSOC);
+
+$sqlKinmen="SELECT * FROM cities
+WHERE 889 < cities && cities < 897";
+$resultKinmen=$conn->query($sqlKinmen);
+$rowKinmen=$resultKinmen->fetch_all(MYSQLI_ASSOC);
+
+$sqlLianjiang="SELECT * FROM cities
+WHERE 208 < cities && cities < 213";
+$resultLianjiang=$conn->query($sqlLianjiang);
+$rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -114,7 +253,7 @@
         <!-- 會員頭貼 -->
         <img
           class="img-profile rounded-circle m-5"
-          src="images/head/1.svg"
+          src="<?= $row["user_img"] ?>"
         />
 
         <hr class="sidebar-divider my-0" />
@@ -210,11 +349,11 @@
               <li class="nav-item dropdown no-arrow d-flex">
                 <div class="nav-link" href="#" id="">
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Hello!</span
+                    >Hello!<?= $row["user_name"]?></span
                   >
                   <img
                     class="img-profile rounded-circle"
-                    src="images/head/1.svg"
+                    src="<?= $row["user_img"] ?>"
                   />
                 </div>
 
@@ -241,7 +380,7 @@
             <div
               class="d-sm-flex align-items-center justify-content-start mb-4"
             >
-              <a class="btn btn-primary mr-3" href="user_index.html"><i class="bi bi-arrow-left"></i></a>
+              <a class="btn btn-primary mr-3" href="user_index.php"><i class="bi bi-arrow-left"></i></a>
               <h1 class="h3 mb-0 text-gray-800 ">詳細資訊</h1>
               
             </div>
@@ -269,40 +408,35 @@
                       <div class="justify-content-center d-flex">
                         
                         <img
-                          class="img-profile rounded-circle "
-                          src="images/head/1.svg"/>
+                          class="img-profile rounded-circle mainpic"
+                          src="<?= $row["user_img"] ?>"/>
                       </div>
                       
 
                       <h6 class="pt-5">點擊即可變換頭貼</ㄋ>
 
                       <div class="thumb d-flex justify-content-around my-3">
-                        <div class="pic mx-2">
-                        <img
+                        <div class="subpic pic mx-2"><img
                           class="object-fit-cover"
                           data-color="1"
                           src="images/head/1.svg"
                           alt=""
                         />
                       </div>
-                      <div class="pic mx-2">
-                        <img
+                      <div class="subpic pic mx-2"><img
                           class="object-fit-cover"
                           data-color="2"
                           src="images/head/2.svg"
                           alt=""
                         />
                       </div>
-                      <div class="pic ratio ratio-1x1 mx-2">
-                        <img
+                      <div class="subpic pic mx-2"><img
                           class="object-fit-cover"
                           data-color="3"
                           src="images/head/3.svg"
                           alt=""
                         />
-                      </div>
-                      <div class="pic ratio ratio-1x1 mx-2">
-                        <img
+                      </div><div class="subpic pic mx-2"><img
                           class="object-fit-cover"
                           data-color="4"
                           src="images/head/4.svg"
@@ -310,8 +444,7 @@
                         />
                       </div>
 
-                      <div class="pic ratio ratio-1x1 mx-2">
-                        <img
+                      <div class="subpic pic mx-2"><img
                           class="object-fit-cover"
                           data-color="4"
                           src="images/head/5.svg"
@@ -332,21 +465,23 @@
                         <tr>
                             <th>姓名</th>
                             <td>
-                                <input class="form-control" type="text" name="name" value="">
+                                <input class="form-control" type="text" name="name" value="<?= $row["user_name"]?>">
                             </td>
+                            <?=
+                            var_dump($rowKeelung)?>
                         </tr>
 
                         <tr>
                             <th>生理性別(非必填)</th>
                             <td class="d-flex">
                               <div class="form-check mr-5">
-                                <input class="form-check-input" type="radio" name="sex" id="sex">
+                                <input class="form-check-input" type="radio" name="sex" id="sex" value=0>
                                 <label class="form-check-label" for="sex">
                                   生理男
                                 </label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sex" id="sex">
+                                <input class="form-check-input" type="radio" name="sex" id="sex" value=1>
                                 <label class="form-check-label" for="sex">
                                   生理女
                                 </label>
@@ -357,24 +492,24 @@
                         <tr>
                             <th>生日(非必填)</th>
                             <td>
-                              <input type="date" class="form-control" name="birth">
+                              <input type="date" class="form-control" name="birth" value="<?= $row["user_birth"]?>">
                             </td>
                         </tr>
         
                         <tr>
                             <th>信箱
                             </th>
-                            <td><input class="form-control" type="text" name="email" value=""></td>
+                            <td><input class="form-control" type="text" name="email" value="<?= $row["user_email"]?>"></td>
                         </tr>
                         <tr>
                             <th>電話</th>
-                            <td><input class="form-control" type="text" name="phone" value=""></td>
+                            <td><input class="form-control" type="text" name="phone" value="<?= $row["user_phone"]?>"></td>
                         </tr>
 
                         <tr>
                             <th>密碼</th>
                             <td>
-                                <input class="form-control" type="text" name="password" value="">
+                                <input class="form-control" type="text" name="password" value="<?= $row["password"]?>">
                             </td>
                         </tr>
 
@@ -395,6 +530,23 @@
                                 <option value="1">基隆市</option>
                                 <option value="2">台北市</option>
                                 <option value="3">新北市</option>
+                                <option value="4">桃園市</option></option>
+                                <option value="5">新竹市</option>
+                                <option value="6">新竹縣</option>
+                                <option value="7">苗栗縣</option>
+                                <option value="8">台中市</option>
+                                <option value="9">彰化縣</option>
+                                <option value="10">雲林縣</option>
+                                <option value="11">嘉義縣</option>
+                                <option value="12">台南市</option>
+                                <option value="13">高雄市</option>
+                                <option value="14">屏東縣</option>
+                                <option value="15">宜蘭縣</option>
+                                <option value="16">花蓮縣</option>
+                                <option value="17">台東縣</option>
+                                <option value="18">澎湖縣</option>
+                                <option value="19">金門縣</option>
+                                <option value="20">馬祖縣</option>
                                 
 
                               </select>
@@ -415,16 +567,16 @@
                             <th>信用卡(非必填)<br><small>預設線上付款，結帳更快速!</small></th>
                             <td>
                                 <small>信用卡卡號</small>
-                                <input class="form-control" type="text" name="credit_card" value="">
+                                <input class="form-control" type="text" name="credit_card" value="<?= $row["credit_card"]?>">
                                 <div class="row">
                                   <div class="col-6">
                                     <small>到期日</small>
-                                    <input class="form-control" type="text" name="valid-thru" value="">
+                                    <input class="form-control" type="text" name="valid-thru" value="<?= $row["valid_thru"]?>">
   
                                   </div>
                                   <div class="col-6">
                                     <small>安全碼</small>
-                                    <input class="form-control" type="text" name="valid-thru" value="">
+                                    <input class="form-control" type="text" name="valid-thru" value="<?= $row["csc"]?>">
   
                                   </div>
 
@@ -522,6 +674,73 @@
         </div>
       </div>
     </div>
+    <!-- 下拉選單 -->
+    <script>
+      var citiesData={
+        '1':[],
+        '2':[],
+        '3':[],
+        '4':[],
+        '5':[],
+        '6':[],
+        '7':[],
+        '8':[],
+        '9':[],
+        '10':[],
+        '11':[],
+        '12':[],
+        '13':[],
+        '14':[],
+        '15':[],
+        '16':[],
+        '17':[],
+        '18':[],
+        '19':[],
+        '20':[],
+
+
+
+
+      }
+
+    </script>
+    
+
+      <!-- 變換圖片 -->
+    <script>
+        const mainpic=document.querySelector(".mainpic")
+        const subpics=document.querySelectorAll(".subpic")
+
+        console.log(subpics);
+        console.log(subpics.length);
+        for(let i=0;i<subpics.length;i++){
+            // 事件監聽器
+            subpics[i].addEventListener("click",function(){
+                console.log("click");
+                let imgUrl=subpics[i].childNodes[0].src;
+                console.log(imgUrl);
+                mainpic.src=imgUrl;
+                
+
+                // for(let j=0;j<subpics.length;j++){
+                //     subpics[j].classList.remove("active")
+                // }
+                // (重要)點下去時先全部移除，再新增被點選的
+
+                // this.classList.add("active");
+                // 也可以寫:pics[i].classList.add("active");
+
+            
+            })
+        }
+
+        // for(let i=0;i<pics.length;i++){
+        //     pic[i].addEventListener("click",function(){
+                
+        //     })
+        // }
+
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

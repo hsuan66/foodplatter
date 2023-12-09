@@ -97,8 +97,8 @@ if($rowCount>0){
 $password=md5($password);
 
 // 寫入資料
-$sql="INSERT INTO users (user_name, password, user_phone, user_email, created_at, user_valid, modified_at)
-VALUES ('$name', '$password', '$phone', '$email', '$time', 1, '$time')";
+$sql="INSERT INTO users (user_name, password, user_phone, user_email, created_at, user_valid)
+VALUES ('$name', '$password', '$phone', '$email', '$time', 1)";
 
 
 // echo $sql;

@@ -179,10 +179,10 @@ session_start();
         </form>
         <hr>
         <div class="text-center">
-            <a class="small" href="user_signin_forget.html">忘記密碼？</a>
+            <a class="small" href="user_signin_forget.php">忘記密碼？</a>
         </div>
         <div class="text-center">
-            <a class="small" href="user_register.html">已經有帳戶？按此登入</a>
+            <a class="small" href="user_signin.php">已經有帳戶？按此登入</a>
         </div>
       </div>
 

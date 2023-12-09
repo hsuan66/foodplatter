@@ -7,6 +7,17 @@ if(!isset($_SESSION["user"])){
     exit;
 }
 
+require_once("db-connect.php");
+
+$id=$_SESSION["user"]["user_id"];
+
+
+$sql="SELECT * FROM users WHERE user_id=$id AND user_valid=1";
+
+$result=$conn->query($sql);
+$userCount=$result->num_rows;
+$row=$result->fetch_assoc();
+
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +125,7 @@ if(!isset($_SESSION["user"])){
 
         <img
           class="img-profile rounded-circle m-5"
-          src="images/head/1.svg"
+          src="<?= $row["user_img"] ?>"
         />
 
         
@@ -215,11 +226,11 @@ if(!isset($_SESSION["user"])){
               <li class="nav-item dropdown no-arrow d-flex">
                 <div class="nav-link" href="#" id="">
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Hello! 八方雲集急急急</span
+                    >Hello!<?= $row["user_name"]?></span
                   >
                   <img
                     class="img-profile rounded-circle"
-                    src="images/head/1.svg"
+                    src="<?= $row["user_img"] ?>"
                   />
                 </div>
 
@@ -248,7 +259,7 @@ if(!isset($_SESSION["user"])){
             >
               <h1 class="h3 mb-0 text-gray-800">詳細資訊</h1>
               <a
-                href="user_edit.html"
+                href="user_edit.php"
                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                 ><i class="bi bi-pencil-square"></i> 編輯</a
               >
@@ -279,59 +290,104 @@ if(!isset($_SESSION["user"])){
 
                     <img
                     class="img-profile rounded-circle col-4"
-                    src="images/head/1.svg"
+                    src="<?= $row["user_img"] ?>"
                   />
 
                   <table class="table col-8">
                     <tr>
                       <th scope="row">姓名</th>
-                      <td></td>
+                      <td><?= $row["user_name"]?></td>
                     </tr>
                     <tr>
                       <th scope="row">性別</th>
-                      <td></td>
+                      <td><?php 
+                      if($row["user_sex"]=== null){
+                        echo "尚未填寫";
+                      }elseif($row["user_sex"]=== 0){
+                        echo "生理男";
+                      }else{
+                        echo "生理女";
+                      }
+                      ?></td>
                     </tr>
         
                     <tr>
                       <th scope="row">生日</th>
-                      <td></td>
+                      <td><?php 
+                      if($row["user_birth"]=== null){
+                        echo '尚未填寫';
+                      }else{
+                        echo $row["user_birth"];
+                      }
+                      ?></td>
                     </tr>
                     <tr>
                       <th scope="row">信箱</th>
-                      <td></td>
+                      <td><?= $row["user_email"]?></td>
                     </tr>
                     <tr>
                       <th scope="row">電話</th>
-                      <td></td>
+                      <td><?= $row["user_phone"]?></td>
                     </tr>
 
                     <tr>
                       <th scope="row">密碼</th>
-                      <td></td>
+                      <td><?= $row["password"]?></td>
                     </tr>
 
                     <tr>
                       <th scope="row">地址</th>
-                      <td></td>
+                      <td><?php 
+                      if($row["user_cities"]=== null){
+                        echo '尚未填寫';
+                      }else{
+                        echo $row["user_address"];
+                      }
+                      // 待改
+                      ?></td>
                     </tr>
 
                     <tr>
                       <th scope="row">信用卡</th>
-                      <td></td>
+                      <td><?php 
+                      if($row["credit_card"]=== null){
+                        echo '尚未填寫';
+                      }else{
+                        echo $row["credit_card"];
+                      }
+                      // 待改
+                      ?></td>
                     </tr>
 
                     <tr>
                       <th scope="row">創建時間</th>
-                      <td></td>
+                      <td><?= $row["created_at"]?></td>
                     </tr>
 
                     <tr>
                       <th scope="row">上次修改時間</th>
-                      <td></td>
+                      <td><?php 
+                      if($row["modified_at"]=== null){
+                        echo '尚未修改';
+                      }else{
+                        echo $row["modified_at"];
+                      }
+                      
+                      ?></td>
                     </tr>
 
                     
                   </table>
+
+                  <?php
+                  // var_dump($_SESSION["user"]);
+                  // print_r($_SESSION);
+                  var_dump($id);
+                  // date_default_timezone_set('Asia/Taipei');
+                  // $time=date('Y-m-d H:i:s');
+                  // var_dump($time);
+                  var_dump($sql);
+                  ?>
                     
                   </div>
                 </div>

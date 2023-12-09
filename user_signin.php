@@ -4,7 +4,7 @@ session_start();
 
 // 如果已經登入就不應該再看到sign這一頁，所以就會把這頁導向dashboard
 if(isset($_SESSION["user"])){
-    header("location:user_index.html");
+    header("location:user_index.php");
     exit;
 }
 
@@ -176,10 +176,10 @@ if(isset($_SESSION["user"])){
               
               <hr>
               <div class="text-center">
-                  <a class="small" href="user_signin_forget.html">忘記密碼?</a>
+                  <a class="small" href="user_signin_forget.php">忘記密碼?</a>
               </div>
               <div class="text-center">
-                  <a class="small" href="user_register.html">創建帳戶!</a>
+                  <a class="small" href="user_register.php">創建帳戶!</a>
               </div>
           </div>
     

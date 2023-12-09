@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+// 只要沒有user資料，就要回到燈入夜面
+if(!isset($_SESSION["user"])){
+    header("location:user_signin.php");
+    exit;
+}
+
+require_once("db-connect.php");
+
+$id=$_SESSION["user"]["user_id"];
+
+
+$sql="SELECT * FROM users WHERE user_id=$id AND user_valid=1";
+
+$result=$conn->query($sql);
+$userCount=$result->num_rows;
+$row=$result->fetch_assoc();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +31,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Foodplatter會員優惠券</title>
+    <title>Foodplatter我的訂單</title>
 
     <!--此模板的自訂字體-->
     <link
@@ -72,13 +93,14 @@
       </div>
     </div>
     <!-- 登出彈出視窗結束 -->
+    <!--頁面包裝器-->
     <div id="wrapper" class="">
       <!--側邊欄-->
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
         id="accordionSidebar"
       >
-        <!--側邊欄-品牌-->
+        <!--側邊欄 -品牌-->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
           href="index.html"
@@ -91,48 +113,54 @@
 
         <img
           class="img-profile rounded-circle m-5"
-          src="images/head/1.svg"
+          src="images/head/<?= $row["user_img"]?>"
         />
 
-        
+        <!--分音器-->
         <hr class="sidebar-divider my-0" />
 
-        <!--導航項目-會員頭貼-nav開始-->
-        <li class="nav-item ">
+        <!--導航項目 -儀表板-->
+        <li class="nav-item">
           <a class="nav-link" href="user_index.html">
             <i class="bi bi-house"></i>
             <span>會員資料</span>
           </a>
         </li>
 
+        <!--分音器-->
         <hr class="sidebar-divider" />
 
-      
-        <li class="nav-item">
+        <!--標題-->
+        
+
+        <!--導航項目 -表格-->
+        <li class="nav-item active">
           <a class="nav-link" href="user_order.html">
             <i class="bi bi-file-earmark"></i>
             <span>訂單</span></a
           >
         </li>
-        
-        <li class="nav-item active">
+        <!--導航項目 -表格-->
+        <li class="nav-item">
           <a class="nav-link" href="user_coupon.html">
             <i class="bi bi-ticket-perforated"></i>
             <span>優惠券</span></a
           >
         </li>
 
-        <!--側邊欄切換器-->
+        
+        
+
+        <!--側邊欄切換器（側邊欄）-->
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
       </ul>
-      <!--側邊欄結束-->
+      <!--側邊欄末尾-->
 
-
-      <!--內容-->
+      <!--內容包裝器-->
       <div id="content-wrapper" class="d-flex flex-column">
-        
+        <!--主要內容-->
         <div id="content">
           <!--nav-->
           <nav
@@ -146,7 +174,7 @@
               <i class="fa fa-bars"></i>
             </button>
 
-            <!--頂欄中間-->
+            <!--頂欄中級-->
             <ul class="navbar-nav ml-auto">
               <!--導航項目 -搜尋下拉式選單（僅 XS 可見）-->
               <li class="nav-item dropdown no-arrow d-sm-none">
@@ -193,7 +221,7 @@
                   >
                   <img
                     class="img-profile rounded-circle"
-                    src="images/head/1.svg"
+                    src="images/head/<?= $row["user_img"]?>"
                   />
                 </div>
 
@@ -216,7 +244,7 @@
           <div class="container-fluid">
             <!-- Page Heading -->
             <div
-              class="d-sm-flex align-items-center justify-content-start mb-4"
+              class="d-sm-flex align-items-center justify-content-between mb-4"
             >
               <h1 class="h3 mb-0 text-gray-800">訂單</h1>
               
@@ -232,23 +260,21 @@
             </div>
 
             <div class="pb-2 d-flex justify-content-between orders my-2">
+              <h6 class="m-0 font-weight-bold text-primary">
+                共有幾個結果
+              </h6>
 
-              <div>
-
-                <h6 class="m-0 font-weight-bold text-primary">
-                  共有個結果
-                </h6>
-              </div>
               <div class="btn-group">
+                  <a class="btn btn-info text-white>" href="">日期<i class="bi bi-sort-up-alt"></i></a>
+      
+                  <a class="btn btn-info text-white" href="">日期<i class="bi bi-sort-down-alt"></i></a>
+      
                   
-      
-                  <a class="btn btn-info text-white" href="">date<i class="bi bi-sort-down-alt"></i></a>
-      
-                  <a class="btn btn-info text-white" href="">date<i class="bi bi-sort-down-alt"></i></a>
       
               </div>
               
             </div>
+            
 
             
             
@@ -256,66 +282,63 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <ul class="nav nav-tabs my-1">
-                  <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="">全部</a>
-                  </li>
-  
-                  
-                  <li class="nav-item">
-                      <a class="nav-link" href="">店家</a>
-                  </li>
+                <div>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="">平台</a>
-                  </li>
-                  
-  
-                  
-
-                </ul>
+                  <ul class="nav nav-tabs my-1">
+                      <li class="nav-item">
+                          <a class="nav-link" aria-current="page" href="">全部</a>
+                      </li>
+      
+                      
+                      <li class="nav-item">
+                          <a class="nav-link" href="">正在處理</a>
+                      </li>
+    
+                      <li class="nav-item">
+                        <a class="nav-link" href="">歷史訂單</a>
+                      </li>
+                      
+      
+                      
+    
+                  </ul>
+                </div>
                 
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-bordered text-nowrap table-striped ">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
                     <thead>
                       <tr>
-                        
-                        <th>優惠卷名稱</th>
-                        <th>優惠卷介紹</th>
-                        <th>優惠卷代碼</th>
-                        <th>優惠券說明</th>
-                        <th>開始日期</th>
-                        <th>到期日期</th>
-                        <th>可使用次數</th>
-                        <th>低消金額</th>
-                        <th>使用條件</th>
-                        <th>狀態</th>
-                        
+                        <th>店家</th>
+                        <th>商品及數量</th>
+                        <th>訂單金額</th>
+                        <th>訂單狀態</th>
+                        <th>訂單創建時間</th>
+                        <th>上次狀態更改時間</th>
                         
                       </tr>
                     </thead>
+                    
                     <tbody>
                       <tr>
-                        
-                        <td class="align-middle">打卡優惠</td>
-                        <td class="align-middle text-wrap">設立外帶自取點，允許顧客在特定地點自取並享受折扣。</td> 
-                        <td class="align-middle">CID7a2G4b8</td>                    
-                        <td class="align-middle">百分比</td>
-                        
-                        <td class="align-middle">2023-12-01</td>
-                        <td class="align-middle">2023-12-30</td>
-                        <td class="align-middle">10</td>
-                        <td class="align-middle">500</td>
-                        <td class="align-middle">早餐店</td>
-                        <td class="align-middle">可使用</td>
-                        
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td></td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
                         
                       </tr>
                       
                     </tbody>
                   </table>
+
                   <div class="d-flex justify-content-center">
                     <nav aria-label="Page navigation example text-end">
                       <ul class="pagination">
@@ -336,12 +359,15 @@
                     </nav>
 
                   </div>
+
                   
                 </div>
               </div>
+
+              
             </div>
           </div>
-          <!-- /.container-fluid -->
+          
         </div>
         
 
