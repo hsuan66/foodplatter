@@ -9,6 +9,8 @@ if(!isset($_SESSION["user"])){
 
 require_once("db-connect.php");
 
+
+
 $id=$_SESSION["user"]["user_id"];
 
 
@@ -18,122 +20,7 @@ $result=$conn->query($sql);
 $userCount=$result->num_rows;
 $row=$result->fetch_assoc();
 
-// 各縣市資料轉換
-$sqlTaipei="SELECT * FROM cities
-WHERE cities < 117";
-$resultTaipei=$conn->query($sqlTaipei);
-$rowTaipei=$resultTaipei->fetch_all(MYSQLI_ASSOC);
 
-
-$sqlNewTaipei="SELECT * FROM cities
-WHERE 206 < cities && cities < 254";
-$resultNewTaipei=$conn->query($sqlNewTaipei);
-$rowNewTaipei=$resultNewTaipei->fetch_all(MYSQLI_ASSOC);
-
-$sqlKeelung="SELECT * FROM cities
-WHERE 199 < cities && cities < 206";
-$resultKeelung=$conn->query($sqlKeelung);
-$rowKeelung=$resultKeelung->fetch_all(MYSQLI_ASSOC);
-
-$sqlKeelung="SELECT * FROM cities
-WHERE 200 < cities && cities < 206";
-$resultKeelung=$conn->query($sqlKeelung);
-$rowKeelung=$resultKeelung->fetch_all(MYSQLI_ASSOC);
-
-$sqlYilan="SELECT * FROM cities
-WHERE 259 < cities && cities < 291";
-$resultYilan=$conn->query($sqlYilan);
-$rowYilan=$resultYilan->fetch_all(MYSQLI_ASSOC);
-
-$sqlHsinchu="SELECT * FROM cities
-WHERE 301 < cities && cities < 316";
-$resultHsinchu=$conn->query($sqlHsinchu);
-$rowHsinchu=$resultHsinchu->fetch_all(MYSQLI_ASSOC);
-
-$sqlHsinchuCity="SELECT * FROM cities
-WHERE cities === 300";
-$resultHsinchuCity=$conn->query($sqlHsinchuCity);
-$rowHsinchuCity=$resultHsinchuCity->fetch_all(MYSQLI_ASSOC);
-
-$sqlTaoyan="SELECT * FROM cities
-WHERE 319 < cities && cities < 339";
-$resultTaoyan=$conn->query($sqlTaoyan);
-$rowTaoyan=$resultTaoyan->fetch_all(MYSQLI_ASSOC);
-
-$sqlMiaoli="SELECT * FROM cities
-WHERE 349 < cities && cities < 370";
-$resultMiaoli=$conn->query($sqlMiaoli);
-$rowMiaoli=$resultMiaoli->fetch_all(MYSQLI_ASSOC);
-
-$sqlTaichung="SELECT * FROM cities
-WHERE 399 < cities && cities < 440";
-$resultTaichung=$conn->query($sqlTaichung);
-$rowTaichung=$resultTaichung->fetch_all(MYSQLI_ASSOC);
-
-$sqlChanghua="SELECT * FROM cities
-WHERE 499 < cities && cities < 531";
-$resultChanghua=$conn->query($sqlChanghua);
-$rowChanghua=$resultChanghua->fetch_all(MYSQLI_ASSOC);
-
-$sqlNantou="SELECT * FROM cities
-WHERE 539 < cities && cities < 559";
-$resultNantou=$conn->query($sqlNantou);
-$rowNantou=$resultNantou->fetch_all(MYSQLI_ASSOC);
-
-$sqlChiayi="SELECT * FROM cities
-WHERE 601 < cities && cities < 626";
-$resultChiayi=$conn->query($sqlChiayi);
-$rowChiayi=$resultChiayi->fetch_all(MYSQLI_ASSOC);
-
-$sqlChiayiCity="SELECT * FROM cities
-WHERE cities === 600";
-$resultChiayiCity=$conn->query($sqlChiayiCity);
-$rowChiayiCity=$resultChiayiCity->fetch_all(MYSQLI_ASSOC);
-
-$sqlYunlin="SELECT * FROM cities
-WHERE 629 < cities && cities < 656";
-$resultYunlin=$conn->query($sqlYunlin);
-$rowYunlin=$resultYunlin->fetch_all(MYSQLI_ASSOC);
-
-$sqlTainan="SELECT * FROM cities
-WHERE 699 < cities && cities < 746";
-$resultTainan=$conn->query($sqlTainan);
-$rowTainan=$resultTainan->fetch_all(MYSQLI_ASSOC);
-
-$sqlKaohsiung="SELECT * FROM cities
-WHERE 799 < cities && cities < 853";
-$resultKaohsiung=$conn->query($sqlKaohsiung);
-$rowKaohsiung=$resultKaohsiung->fetch_all(MYSQLI_ASSOC);
-
-$sqlPenghu="SELECT * FROM cities
-WHERE 879 < cities && cities < 886";
-$resultPenghu=$conn->query($sqlPenghu);
-$rowPenghu=$resultPenghu->fetch_all(MYSQLI_ASSOC);
-
-$sqlPingtung="SELECT * FROM cities
-WHERE 899 < cities && cities < 948";
-$resultPingtung=$conn->query($sqlPingtung);
-$rowPingtung=$resultPingtung->fetch_all(MYSQLI_ASSOC);
-
-$sqlTaitung="SELECT * FROM cities
-WHERE 949 < cities && cities < 967";
-$resultTaitung=$conn->query($sqlTaitung);
-$rowTaitung=$resultTaitung->fetch_all(MYSQLI_ASSOC);
-
-$sqlHualiang="SELECT * FROM cities
-WHERE 969 < cities && cities < 984";
-$resultHualiang=$conn->query($sqlHualiang);
-$rowHualiang=$resultHualiang->fetch_all(MYSQLI_ASSOC);
-
-$sqlKinmen="SELECT * FROM cities
-WHERE 889 < cities && cities < 897";
-$resultKinmen=$conn->query($sqlKinmen);
-$rowKinmen=$resultKinmen->fetch_all(MYSQLI_ASSOC);
-
-$sqlLianjiang="SELECT * FROM cities
-WHERE 208 < cities && cities < 213";
-$resultLianjiang=$conn->query($sqlLianjiang);
-$rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -185,8 +72,15 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
           height: 50px;
 
         }
+        & input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
         
       }
+
+      
       
     </style>
 
@@ -226,7 +120,7 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
             >
               取消
             </button>
-            <a class="btn btn-primary" href="login.php">登出</a>
+            <a class="btn btn-primary" href="UserSignout.php">登出</a>
           </div>
         </div>
       </div>
@@ -242,7 +136,7 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
         <!--側邊欄-品牌-->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="index.php"
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="bi bi-slack"></i>
@@ -251,16 +145,20 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
         </a>
         
         <!-- 會員頭貼 -->
-        <img
-          class="img-profile rounded-circle m-5"
-          src="<?= $row["user_img"] ?>"
-        />
+        <div class="d-flex align-items-center justify-content-center row">
+          <img
+            class="img-profile rounded-circle col-7 py-3"
+            src="<?= $row["user_img"] ?>"
+          />
+
+          <span class="text-white col-12 text-center py-3">Hello ! <?= $row["user_name"]?></span>
+        </div>
 
         <hr class="sidebar-divider my-0" />
 
         <!-- nav -->
         <li class="nav-item active">
-          <a class="nav-link" href="user_index.html">
+          <a class="nav-link" href="user_index.php">
             
             <span><i class="bi bi-house"></i>會員資料</span>
           </a>
@@ -269,14 +167,14 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
         <hr class="sidebar-divider" />
         
         <li class="nav-item">
-          <a class="nav-link" href="user_order.html">
+          <a class="nav-link" href="user_order.php">
             
             <span><i class="bi bi-file-earmark"></i>訂單</span></a
           >
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="user_coupon.html">
+          <a class="nav-link" href="user_coupon.php">
             
             <span><i class="bi bi-ticket-perforated"></i>優惠券</span></a
           >
@@ -349,7 +247,7 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
               <li class="nav-item dropdown no-arrow d-flex">
                 <div class="nav-link" href="#" id="">
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Hello!<?= $row["user_name"]?></span
+                    >Hello ! <?= $row["user_name"]?></span
                   >
                   <img
                     class="img-profile rounded-circle"
@@ -390,219 +288,238 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
               <div class="col-12">
                 <div class="card shadow mb-4">
                   
-                  <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
                       會員資料修改
                     </h6>
                     
                   </div>
-                  
-                  <div class="card-body row">
 
-                    <!-- 大頭貼 -->
-                    <div class="col-4">
-                      <h6 class="pt-5">頭貼</h6>
+                  <form class="" action="UserUpdate.php" method="post">
+                      <div class="card-body row">
 
-                      <div class="justify-content-center d-flex">
-                        
-                        <img
-                          class="img-profile rounded-circle mainpic"
-                          src="<?= $row["user_img"] ?>"/>
-                      </div>
-                      
+                        <!-- 會員資訊修改 -->
+                          <div class="col-4">
+                            <h6 class="pt-5">頭貼</h6>
 
-                      <h6 class="pt-5">點擊即可變換頭貼</ㄋ>
-
-                      <div class="thumb d-flex justify-content-around my-3">
-                        <div class="subpic pic mx-2"><img
-                          class="object-fit-cover"
-                          data-color="1"
-                          src="images/head/1.svg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="subpic pic mx-2"><img
-                          class="object-fit-cover"
-                          data-color="2"
-                          src="images/head/2.svg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="subpic pic mx-2"><img
-                          class="object-fit-cover"
-                          data-color="3"
-                          src="images/head/3.svg"
-                          alt=""
-                        />
-                      </div><div class="subpic pic mx-2"><img
-                          class="object-fit-cover"
-                          data-color="4"
-                          src="images/head/4.svg"
-                          alt=""
-                        />
-                      </div>
-
-                      <div class="subpic pic mx-2"><img
-                          class="object-fit-cover"
-                          data-color="4"
-                          src="images/head/5.svg"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-
-                  </div>
-
-                    
-
-                  <!-- 會員資訊修改 -->
-                  <form class="col-8" action="" method="post">
-                    <table class="table">
-                        <input type="hidden" name="id" value="">
-                        
-                        <tr>
-                            <th>姓名</th>
-                            <td>
-                                <input class="form-control" type="text" name="name" value="<?= $row["user_name"]?>">
-                            </td>
-                            <?=
-                            var_dump($rowKeelung)?>
-                        </tr>
-
-                        <tr>
-                            <th>生理性別(非必填)</th>
-                            <td class="d-flex">
-                              <div class="form-check mr-5">
-                                <input class="form-check-input" type="radio" name="sex" id="sex" value=0>
-                                <label class="form-check-label" for="sex">
-                                  生理男
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sex" id="sex" value=1>
-                                <label class="form-check-label" for="sex">
-                                  生理女
-                                </label>
-                              </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>生日(非必填)</th>
-                            <td>
-                              <input type="date" class="form-control" name="birth" value="<?= $row["user_birth"]?>">
-                            </td>
-                        </tr>
-        
-                        <tr>
-                            <th>信箱
-                            </th>
-                            <td><input class="form-control" type="text" name="email" value="<?= $row["user_email"]?>"></td>
-                        </tr>
-                        <tr>
-                            <th>電話</th>
-                            <td><input class="form-control" type="text" name="phone" value="<?= $row["user_phone"]?>"></td>
-                        </tr>
-
-                        <tr>
-                            <th>密碼</th>
-                            <td>
-                                <input class="form-control" type="text" name="password" value="<?= $row["password"]?>">
-                            </td>
-                        </tr>
-
-                        <tr>
-                          <th>確認密碼</th>
-                          <td>
-                              <input class="form-control" type="text" name="password" value="">
-                          </td>
-                      </tr>
-                        
-
-                        <tr>
-                            <th>地址(非必填)<br><small>若有填寫，未來將根據您的所在地，<br>更快速的推薦餐廳給您!</small></th>
-                            <td>
-                              縣市
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected>請選擇縣市</option>
-                                <option value="1">基隆市</option>
-                                <option value="2">台北市</option>
-                                <option value="3">新北市</option>
-                                <option value="4">桃園市</option></option>
-                                <option value="5">新竹市</option>
-                                <option value="6">新竹縣</option>
-                                <option value="7">苗栗縣</option>
-                                <option value="8">台中市</option>
-                                <option value="9">彰化縣</option>
-                                <option value="10">雲林縣</option>
-                                <option value="11">嘉義縣</option>
-                                <option value="12">台南市</option>
-                                <option value="13">高雄市</option>
-                                <option value="14">屏東縣</option>
-                                <option value="15">宜蘭縣</option>
-                                <option value="16">花蓮縣</option>
-                                <option value="17">台東縣</option>
-                                <option value="18">澎湖縣</option>
-                                <option value="19">金門縣</option>
-                                <option value="20">馬祖縣</option>
-                                
-
-                              </select>
-                              區域
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected>請選擇鄉鎮市區</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                              詳細地址:
-                              <input class="form-control mt-3" type="text" name="address" value="">
+                            <div class="justify-content-center d-flex">
                               
-                            </td>
-                        </tr>
+                              <img
+                                class="img-profile rounded-circle mainpic"
+                                src="<?= $row["user_img"] ?>"/>
+                            </div>
+                            
 
-                        <tr>
-                            <th>信用卡(非必填)<br><small>預設線上付款，結帳更快速!</small></th>
-                            <td>
-                                <small>信用卡卡號</small>
-                                <input class="form-control" type="text" name="credit_card" value="<?= $row["credit_card"]?>">
-                                <div class="row">
-                                  <div class="col-6">
-                                    <small>到期日</small>
-                                    <input class="form-control" type="text" name="valid-thru" value="<?= $row["valid_thru"]?>">
-  
-                                  </div>
-                                  <div class="col-6">
-                                    <small>安全碼</small>
-                                    <input class="form-control" type="text" name="valid-thru" value="<?= $row["csc"]?>">
-  
-                                  </div>
+                            <h6 class="pt-5">點擊即可變換頭貼</ㄋ>
 
-                                </div>
+                            <div class="thumb d-flex justify-content-around my-3">
+                              <div class="pic mx-2"><input id="head1" type="radio" name="head" value="images/head/1.svg"><label for="head1"><img
+                                class="subpic object-fit-cover"
+                                data-color="1"
+                                src="images/head/1.svg"
+                                alt=""
+                              /></label>
+                              </div>
+
+                              <div class="pic mx-2"><input id="head2" type="radio" name="head" value="images/head/2.svg"><label for="head2"><img
+                                  class="subpic object-fit-cover"
+                                  data-color="2"
+                                  src="images/head/2.svg"
+                                  alt=""
+                                /></label>
+                              </div>
+
+                              <div class="pic mx-2"><input id="head3" type="radio" name="head" value="images/head/3.svg"><label for="head3"><img
+                                  class="subpic object-fit-cover"
+                                  data-color="3"
+                                  src="images/head/3.svg"
+                                  alt=""
+                                /></label>
+                              </div>
+
+                              <div class="pic mx-2"><input id="head4" type="radio" name="head" value="images/head/4.svg"><label for="head4"><img
+                                  class="subpic object-fit-cover"
+                                  data-color="4"
+                                  src="images/head/4.svg"
+                                  alt=""
+                                /></label>
+                              </div>
+
+                              <div class="pic mx-2"><input id="head5" type="radio" name="head" value="images/head/5.svg"><label for="head5"><img
+                                  class="subpic object-fit-cover"
+                                  data-color="4"
+                                  src="images/head/5.svg"
+                                  alt=""
+                                /></label>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="col-8">
+                          <table class="table">
+                            <input type="hidden" name="id" value="<?=$row["user_id"]?>">
+                            
+                            <tr>
+                                <th><span class="text-danger">*</span>姓名</th>
+                                <td>
+                                    <input class="form-control" type="text" name="name" value="<?= $row["user_name"]?>">
+                                </td>
                                 
                                 
-                                
-                                
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    <div class="py-2 d-flex justify-content-end">
-                        <div>
-                          <a class="btn btn-secondary text-white" href="index.html">取消</a>
-                          <button class="btn btn-primary text-white" type="submit">
-                              儲存
-                          </button>
-                        
-                        
+                            </tr>
+
+                            <tr>
+                                <th>生理性別(非必填)</th>
+                                <td class="d-flex">
+                                  <div class="form-check mr-5">
+                                    <input <?php if($row["user_sex"]==0){echo "checked";} ?>class="form-check-input" type="radio" name="sex" id="sex" value=0>
+                                    <label class="form-check-label" for="sex">
+                                      生理男
+                                    </label>
+                                  </div>
+                                  <div class="form-check mr-5">
+                                    <input <?php if($row["user_sex"]==1){echo "checked";}?> class="form-check-input" type="radio" name="sex" id="sex" value=1>
+                                    <label class="form-check-label" for="sex">
+                                      生理女
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input <?php if($row["user_sex"]==2){echo "checked";}?> class="form-check-input" type="radio" name="sex" id="sex" value=2>
+                                    <label class="form-check-label" for="sex">
+                                      不填寫
+                                    </label>
+                                  </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>生日(非必填)</th>
+                                <td class="d-flex">
+                                  <label for="birth1" class="mr-5">
+                                    <input id="birth1" type="radio" name="birth0" value="1" onclick="enableDateInput('.date1')">
+                                    <input type="date" name="birth" class="date1" readonly>
+                                      
+                                  </label>
+
+                                  <label for="birth2">
+                                    <input id="birth2" type="radio" name="birth0" value=null onclick="removeDateInput('.date1')">
+                                    不填寫  
+                                  </label>
+
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <th><span class="text-danger">*</span>信箱
+                                </th>
+                                <td><input class="form-control" type="text" name="email" value="<?= $row["user_email"]?>"></td>
+                            </tr>
+                            <tr>
+                                <th><span class="text-danger">*</span>電話</th>
+                                <td><input class="form-control" type="text" name="phone" value="<?= $row["user_phone"]?>"></td>
+                            </tr>
+
+                            
+                            
+
+                            <tr>
+                                <th>地址(非必填)<br><small>若有填寫，未來將根據您的所在地，<br>更快速的推薦餐廳給您!</small></th>
+                                <td>
+                                  縣市
+                                  <select class="form-select mainmenu" >
+                                    <option selected>請選擇縣市</option>
+                                    <option value="1">基隆市</option>
+                                    <option value="2">台北市</option>
+                                    <option value="3">新北市</option>
+                                    <option value="4">桃園市</option>
+                                    <option value="5">新竹市</option>
+                                    <option value="6">新竹縣</option>
+                                    <option value="7">苗栗縣</option>
+                                    <option value="8">台中市</option>
+                                    <option value="9">彰化縣</option>
+                                    <option value="10">南投縣</option>
+                                    <option value="11">雲林縣</option>
+                                    <option value="12">嘉義市</option>
+                                    <option value="13">嘉義縣</option>
+                                    <option value="14">台南市</option>
+                                    <option value="15">高雄市</option>
+                                    <option value="16">屏東縣</option>
+                                    <option value="17">宜蘭縣</option>
+                                    <option value="18">花蓮縣</option>
+                                    <option value="19">台東縣</option>
+                                    <option value="20">澎湖縣</option>
+                                    <option value="21">金門縣</option>
+                                    <option value="22">連江縣</option>
+
+                                    
+
+                                  </select>
+                                  區域
+                                  <select class="form-select submenu">
+                                    <option selected>請選擇鄉鎮市區</option>
+                                    <?php foreach($rowsTaiwan as $rowTaiwan):?>
+                                      <option value="<?= $$rowTaiwan["cities"]?>"><?= $$rowTaiwan["cities_name"]?></option>
+                                    <?php endforeach;?>
+                                    
+                                    
+                                  </select>
+                                  詳細地址:
+                                  <input class="form-control mt-3" type="text" name="address" value="">
+                                  
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>信用卡(非必填)<br><small>預設線上付款，結帳更快速!</small></th>
+                                <td>
+                                    <small>信用卡卡號</small>
+                                    <input class="form-control" type="text" name="credit_card" value="<?= $row["credit_card"]?>">
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <small>到期日</small>
+                                        <input class="form-control" type="text" name="valid-thru" value="<?= $row["valid_thru"]?>">
+      
+                                      </div>
+                                      <div class="col-6">
+                                        <small>安全碼</small>
+                                        <input class="form-control" type="text" name="valid-thru" value="<?= $row["csc"]?>">
+      
+                                      </div>
+
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                </td>
+                            </tr>
+                            
+                          </table>
+                          <?php
+                          if(isset($_SESSION["error"]["message"])):?>
+                          <div class="text-danger"><?php echo $_SESSION["error"]["message"] ?></div>
+                          <?php endif;?>
+
                         </div>
                         
-                    </div>
-                </form>
+
+                      </div>
+
+                      
+                      <div class="p-3 d-flex justify-content-end">
+                          <div>
+                            <a class="btn btn-secondary text-white" href="user_index.php">取消</a>
+                            <button class="btn btn-primary text-white" type="submit">
+                                儲存
+                            </button>
+                          
+                          
+                          </div>
+                          
+                      </div>
+                  </form>
                     
-                  </div>
+                  
                 </div>
               </div>
 
@@ -674,8 +591,70 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
         </div>
       </div>
     </div>
+    
+    <!-- 選擇是否填日期 -->
+    <script>
+      function enableDateInput(inputId) {
+          var dateInput = document.querySelector(inputId);
+          
+          if (dateInput) {
+              dateInput.removeAttribute('readonly');
+          }
+          
+      }
+
+      function removeDateInput(removeId){
+        var removeInput = document.querySelector(removeId);
+        if (removeInput) {
+            removeInput.setAttribute('readonly','true');
+        }
+      }
+    </script>
     <!-- 下拉選單 -->
     <script>
+      const mainMenu = document.querySelector(".mainmenu");
+      const subMenu = document.querySelector(".submenu");
+      
+      mainMenu.addEventListener("change",function(){
+        
+
+      })
+    </script>
+
+    <!-- 下拉選單 -->
+    <script>
+      function updateSubMenu() {
+            var mainMenu = document.querySelector(".mainmenu");
+            var subMenu = document.querySelector(".submenu");
+
+            // 清空次選單的內容
+            subMenu.innerHTML = '';
+
+            // 取得選擇的值
+            var selectedValue = mainMenu.value;
+
+            // 如果沒有選擇主選單，則直接返回
+            if (!selectedValue) {
+                return;
+            }
+
+            // 根據選擇的值取得對應的資料
+            var data = citiesData[selectedValue];
+
+            // 動態生成次選單的內容
+            data.forEach(function (item) {
+                addOption(subMenu, item);
+            });
+        }
+
+        function addOption(selectElement, text) {
+            var option = document.createElement('option');
+            option.value = text;
+            option.text = text;
+            selectElement.add(option);
+        }
+
+
       var citiesData={
         '1':[],
         '2':[],
@@ -717,9 +696,10 @@ $rowLianjiang=$resultLianjiang->fetch_all(MYSQLI_ASSOC);
             // 事件監聽器
             subpics[i].addEventListener("click",function(){
                 console.log("click");
-                let imgUrl=subpics[i].childNodes[0].src;
-                console.log(imgUrl);
+                let imgUrl=subpics[i].src;
+                // console.log(imgUrl);
                 mainpic.src=imgUrl;
+                
                 
 
                 // for(let j=0;j<subpics.length;j++){

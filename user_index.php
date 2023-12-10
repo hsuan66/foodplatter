@@ -1,13 +1,15 @@
 <?php
 session_start();
 
-// 只要沒有user資料，就要回到燈入夜面
+// 只要沒有user資料，就要回到登入頁面
 if(!isset($_SESSION["user"])){
     header("location:user_signin.php");
     exit;
 }
 
 require_once("db-connect.php");
+
+unset($_SESSION["error"]);
 
 $id=$_SESSION["user"]["user_id"];
 
@@ -123,10 +125,16 @@ $row=$result->fetch_assoc();
           <div class="sidebar-brand-text mx-3">foodplatter</div>
         </a>
 
-        <img
-          class="img-profile rounded-circle m-5"
-          src="<?= $row["user_img"] ?>"
-        />
+        <div class="d-flex align-items-center justify-content-center row">
+          <img
+            class="img-profile rounded-circle col-7 py-3"
+            src="<?= $row["user_img"] ?>"
+          />
+
+          <span class="text-white col-12 text-center py-3">Hello ! <?= $row["user_name"]?></span>
+        </div>
+
+        
 
         
 
@@ -135,7 +143,7 @@ $row=$result->fetch_assoc();
 
         <!--導航項目 -儀表板-->
         <li class="nav-item active">
-          <a class="nav-link" href="user_index.html">
+          <a class="nav-link" href="user_index.php">
             <i class="bi bi-house"></i>
             <span>會員資料</span>
           </a>
@@ -147,14 +155,14 @@ $row=$result->fetch_assoc();
 
         <!--導航項目 -表格-->
         <li class="nav-item">
-          <a class="nav-link" href="user_order.html">
+          <a class="nav-link" href="user_order.php">
             <i class="bi bi-file-earmark"></i>
             <span>訂單</span></a
           >
         </li>
         <!--導航項目 -表格-->
         <li class="nav-item">
-          <a class="nav-link" href="user_coupon.html">
+          <a class="nav-link" href="user_coupon.php">
             <i class="bi bi-ticket-perforated"></i>
             <span>優惠券</span></a
           >
@@ -226,7 +234,7 @@ $row=$result->fetch_assoc();
               <li class="nav-item dropdown no-arrow d-flex">
                 <div class="nav-link" href="#" id="">
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Hello!<?= $row["user_name"]?></span
+                    >Hello ! <?= $row["user_name"]?></span
                   >
                   <img
                     class="img-profile rounded-circle"
@@ -272,7 +280,7 @@ $row=$result->fetch_assoc();
 
             <!-- Content Row -->
 
-            <div class="row">
+            <div class="row ">
               <!-- Area Chart -->
               <div class="col-12">
                 <div class="card shadow mb-4">
@@ -286,12 +294,17 @@ $row=$result->fetch_assoc();
                     
                   </div>
                   <!-- Card Body -->
-                  <div class="card-body row">
+                  <div class="card-body row pr-5">
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                      <img
+                      class="img-profile rounded-circle"
+                      src="<?= $row["user_img"] ?>"
+                    />
 
-                    <img
-                    class="img-profile rounded-circle col-4"
-                    src="<?= $row["user_img"] ?>"
-                  />
+                    </div>
+
+                    
+                  
 
                   <table class="table col-8">
                     <tr>
@@ -301,12 +314,14 @@ $row=$result->fetch_assoc();
                     <tr>
                       <th scope="row">性別</th>
                       <td><?php 
-                      if($row["user_sex"]=== null){
+                      if($row["user_sex"]== null){
                         echo "尚未填寫";
-                      }elseif($row["user_sex"]=== 0){
+                      }elseif($row["user_sex"]== 0){
                         echo "生理男";
-                      }else{
+                      }elseif($row["user_sex"]== 1){
                         echo "生理女";
+                      }else{
+                        echo "尚未填寫";
                       }
                       ?></td>
                     </tr>
@@ -314,7 +329,7 @@ $row=$result->fetch_assoc();
                     <tr>
                       <th scope="row">生日</th>
                       <td><?php 
-                      if($row["user_birth"]=== null){
+                      if($row["user_birth"]== null || $row["user_birth"]== "0000-00-00"){
                         echo '尚未填寫';
                       }else{
                         echo $row["user_birth"];
@@ -330,10 +345,7 @@ $row=$result->fetch_assoc();
                       <td><?= $row["user_phone"]?></td>
                     </tr>
 
-                    <tr>
-                      <th scope="row">密碼</th>
-                      <td><?= $row["password"]?></td>
-                    </tr>
+                    
 
                     <tr>
                       <th scope="row">地址</th>
@@ -382,11 +394,11 @@ $row=$result->fetch_assoc();
                   <?php
                   // var_dump($_SESSION["user"]);
                   // print_r($_SESSION);
-                  var_dump($id);
+                  // var_dump($id);
                   // date_default_timezone_set('Asia/Taipei');
                   // $time=date('Y-m-d H:i:s');
                   // var_dump($time);
-                  var_dump($sql);
+                  // var_dump($sql);
                   ?>
                     
                   </div>

@@ -1,19 +1,83 @@
 <?php
-require_once("../db-connect.php");
+require_once("db-connect.php");
+session_start();
+
 if(!isset($_POST["name"])){
     echo "請循正常管道進入此頁";
     exit;
 }
 
-// 通常不會用這種方式讓別人去修改東西，通常會躍登入，讓伺服器給他一個密要，才可以進去修改東西
+$id=$_SESSION["user"]["user_id"];
+
+
+$sql="SELECT * FROM users WHERE user_id=$id AND user_valid=1";
+
+$result=$conn->query($sql);
+$userCount=$result->num_rows;
+$row=$result->fetch_assoc();
+
+if($_POST["head"]==""){
+    $_POST["head"]=$row["user_img"];
+}
+
+if($_POST["sex"]==""){
+    $_POST["sex"]=$row["user_sex"];
+}
+
+// if($_POST["birth"]=="" || $_POST["birth"]=="0000-00-00"){
+//     $_POST["birth"]=null;
+// }
 
 $id=$_POST["id"];
+$head=$_POST["head"];
 $name=$_POST["name"];
+$sex=$_POST["sex"];
+$birth=$_POST["birth"];
 $email=$_POST["email"];
 $phone=$_POST["phone"];
-// echo $name;
+// $password=$_POST["password"];
+// $address=$_POST["address"];
+// $credit_card=$_POST["credit_card"];
 
-$sql = "UPDATE users SET name='$name', phone='$phone', email='$email' WHERE id=$id";
+// date_default_timezone_set('Asia/Taipei');
+$time=date('Y-m-d H:i:s');
+
+if(empty($name)){
+    $message="請輸入姓名";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    // echo "請輸入email";
+    exit;
+}
+
+// if(empty($birth) || $_POST["birth0"]==="1"){
+//     $message="請輸入生日或選擇不填寫";
+//     $_SESSION["error"]["message"]=$message;
+//     header("location:user_edit.php");
+//     // echo "請輸入email";
+//     exit;
+// }
+
+if(empty($email)){
+    $message="請輸入信箱";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    // echo "請輸入email";
+    exit;
+}
+
+if(empty($phone)){
+    $message="請輸入電話";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    // echo "請輸入email";
+    exit;
+}
+
+
+$sql = "UPDATE users SET user_img='$head', user_name='$name', user_sex='$sex', user_birth='$birth', user_phone='$phone', user_email='$email',modified_at='$time' WHERE user_id=$id";
+
+var_dump($sql);
 
 if ($conn->query($sql) === TRUE) {
     echo "更新成功";
@@ -23,6 +87,8 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-header("location:user.php?id=$id");
+unset($_SESSION["error"]);
+
+header("location:user_index.php");
 
 ?>
