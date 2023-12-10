@@ -350,12 +350,12 @@ $row=$result->fetch_assoc();
                     <tr>
                       <th scope="row">地址</th>
                       <td><?php 
-                      if($row["user_cities"]=== null){
+                      if($row["user_address_all"]== null || $row["user_address_all"]==""){
                         echo '尚未填寫';
                       }else{
-                        echo $row["user_address"];
+                        echo $row["user_address_all"];
                       }
-                      // 待改
+                      
                       ?></td>
                     </tr>
 

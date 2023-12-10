@@ -35,8 +35,11 @@ $sex=$_POST["sex"];
 $birth=$_POST["birth"];
 $email=$_POST["email"];
 $phone=$_POST["phone"];
+$county_text=$_POST["county_text"];
+$district_text=$_POST["district_text"];
 // $password=$_POST["password"];
-// $address=$_POST["address"];
+$address=$_POST["address"];
+$zip=$_POST["zip"];
 // $credit_card=$_POST["credit_card"];
 
 // date_default_timezone_set('Asia/Taipei');
@@ -50,13 +53,6 @@ if(empty($name)){
     exit;
 }
 
-// if(empty($birth) || $_POST["birth0"]==="1"){
-//     $message="請輸入生日或選擇不填寫";
-//     $_SESSION["error"]["message"]=$message;
-//     header("location:user_edit.php");
-//     // echo "請輸入email";
-//     exit;
-// }
 
 if(empty($email)){
     $message="請輸入信箱";
@@ -75,7 +71,7 @@ if(empty($phone)){
 }
 
 
-$sql = "UPDATE users SET user_img='$head', user_name='$name', user_sex='$sex', user_birth='$birth', user_phone='$phone', user_email='$email',modified_at='$time' WHERE user_id=$id";
+$sql = "UPDATE users SET user_img='$head', user_name='$name', user_sex='$sex', user_birth='$birth', user_phone='$phone', user_email='$email',modified_at='$time', user_cities='$zip',user_address_all='$county_text$district_text$address', user_address='$address' WHERE user_id=$id";
 
 var_dump($sql);
 
