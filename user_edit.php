@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// 只要沒有user資料，就要回到燈入夜面
 if(!isset($_SESSION["user"])){
     header("location:user_signin.php");
     exit;
@@ -9,19 +8,13 @@ if(!isset($_SESSION["user"])){
 
 require_once("db-connect.php");
 
-
-
 $id=$_SESSION["user"]["user_id"];
-
 
 $sql="SELECT * FROM users WHERE user_id=$id AND user_valid=1";
 
 $result=$conn->query($sql);
 $userCount=$result->num_rows;
 $row=$result->fetch_assoc();
-
-
-
 
 ?>
 
@@ -304,7 +297,7 @@ $row=$result->fetch_assoc();
 
                         <!-- 會員資訊修改 -->
                           <div class="col-4">
-                            <h6 class="pt-5">頭貼</h6>
+                            
 
                             <div class="justify-content-center d-flex">
                               
@@ -375,7 +368,7 @@ $row=$result->fetch_assoc();
                                 <th>生理性別(非必填)</th>
                                 <td class="d-flex">
                                   <div class="form-check mr-5">
-                                    <input <?php if($row["user_sex"]==0){echo "checked";} ?>class="form-check-input" type="radio" name="sex" id="sex" value=0>
+                                    <input <?php if($row["user_sex"]==0){echo "checked";} ?> class="form-check-input" type="radio" name="sex" id="sex" value=0>
                                     <label class="form-check-label" for="sex">
                                       生理男
                                     </label>
@@ -450,31 +443,12 @@ $row=$result->fetch_assoc();
                                   
                                 </td>
                             </tr>
-
                             <tr>
-                                <th>信用卡(非必填)<br><small>預設線上付款，結帳更快速!</small></th>
-                                <td>
-                                    <small>信用卡卡號</small>
-                                    <input class="form-control" type="text" name="credit_card" value="<?= $row["credit_card"]?>">
-                                    <div class="row">
-                                      <div class="col-6">
-                                        <small>到期日</small>
-                                        <input class="form-control" type="text" name="valid-thru" value="<?= $row["valid_thru"]?>">
-      
-                                      </div>
-                                      <div class="col-6">
-                                        <small>安全碼</small>
-                                        <input class="form-control" type="text" name="valid-thru" value="<?= $row["csc"]?>">
-      
-                                      </div>
-
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                </td>
+                              <th scope="row">創建時間</th>
+                              <td><?= $row["created_at"]?></td>
                             </tr>
+
+                            
                             
                           </table>
                           <?php
@@ -690,13 +664,13 @@ $row=$result->fetch_assoc();
       const districtText = document.querySelector('#districtText');
 
       // 從資料庫中獲取已經選擇的縣市和鄉鎮市區的值
-      const selectedCountyFromDatabase = "<?php echo $county_text; ?>";
-      const selectedDistrictFromDatabase = "<?php echo $district_text; ?>";
+      // const selectedCountyFromDatabase = "<?php //echo $county_text; ?>";
+      // const selectedDistrictFromDatabase = "<?php //echo $district_text; ?>";
 
       // 遍歷 database 對象，生成縣市下拉選單的選項
       Object.getOwnPropertyNames(database).forEach((county) => {
           // 檢查是否與資料庫的值匹配，如果匹配，就加上 selected 屬性
-          const selectedAttr = (county === selectedCountyFromDatabase) ? 'selected' : '';
+          // const selectedAttr = (county === selectedCountyFromDatabase) ? 'selected' : '';
           county_box.innerHTML += `<option value="${county}">${county}</option>`;
       });
 
@@ -709,7 +683,7 @@ $row=$result->fetch_assoc();
 
           Object.getOwnPropertyNames(database[selected_county]).forEach((district) => {
               // 檢查是否與資料庫的值匹配，如果匹配，就加上 selected 屬性
-              const selectedAttr = (district === selectedDistrictFromDatabase) ? 'selected' : '';
+              // const selectedAttr = (district === selectedDistrictFromDatabase) ? 'selected' : '';
               district_box.innerHTML += `<option value="${district}">${district}</option>`;
           });
           // countyText.value = county.options[county.selectedIndex].text;
@@ -729,16 +703,7 @@ $row=$result->fetch_assoc();
           districtText.value = selectedDistrictText;
       })
 
-      // 找到對應的 key
-        function findKeyByValue(obj, value) {
-            return Object.keys(obj).find(key => obj[key] === value);
-        }
-
-        // 以 '次選項 2-2' 為例
-        const valueToFind = '次選項 2-2';
-        const foundKey = findKeyByValue(menuData, valueToFind);
-
-        console.log(foundKey); // 輸出 'option2'
+      
 
       
       

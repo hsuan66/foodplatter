@@ -87,7 +87,7 @@ $row=$result->fetch_assoc();
             >
               取消
             </button>
-            <a class="btn btn-primary" href="login.php">登出</a>
+            <a class="btn btn-primary" href="UserSignout.php">登出</a>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ $row=$result->fetch_assoc();
         <!--側邊欄 -品牌-->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="user_index.php"
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="bi bi-slack"></i>
@@ -111,17 +111,21 @@ $row=$result->fetch_assoc();
           <div class="sidebar-brand-text mx-3">foodplatter</div>
         </a>
 
-        <img
-          class="img-profile rounded-circle m-5"
-          src="images/head/<?= $row["user_img"]?>"
-        />
+        <div class="d-flex align-items-center justify-content-center row">
+          <img
+            class="img-profile rounded-circle col-7 py-3"
+            src="<?= $row["user_img"] ?>"
+          />
+
+          <span class="text-white col-12 text-center py-3">Hello ! <?= $row["user_name"]?></span>
+        </div>
 
         <!--分音器-->
         <hr class="sidebar-divider my-0" />
 
         <!--導航項目 -儀表板-->
         <li class="nav-item">
-          <a class="nav-link" href="user_index.html">
+          <a class="nav-link" href="user_index.php">
             <i class="bi bi-house"></i>
             <span>會員資料</span>
           </a>
@@ -135,14 +139,14 @@ $row=$result->fetch_assoc();
 
         <!--導航項目 -表格-->
         <li class="nav-item active">
-          <a class="nav-link" href="user_order.html">
+          <a class="nav-link" href="user_order.php">
             <i class="bi bi-file-earmark"></i>
             <span>訂單</span></a
           >
         </li>
         <!--導航項目 -表格-->
         <li class="nav-item">
-          <a class="nav-link" href="user_coupon.html">
+          <a class="nav-link" href="user_coupon.php">
             <i class="bi bi-ticket-perforated"></i>
             <span>優惠券</span></a
           >
@@ -217,11 +221,11 @@ $row=$result->fetch_assoc();
               <li class="nav-item dropdown no-arrow d-flex">
                 <div class="nav-link" href="#" id="">
                   <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    >Hello! 八方雲集急急急</span
+                    >Hello ! <?=$row["user_name"]?></span
                   >
                   <img
                     class="img-profile rounded-circle"
-                    src="images/head/<?= $row["user_img"]?>"
+                    src="<?= $row["user_img"]?>"
                   />
                 </div>
 
@@ -261,7 +265,7 @@ $row=$result->fetch_assoc();
 
             <div class="pb-2 d-flex justify-content-between orders my-2">
               <h6 class="m-0 font-weight-bold text-primary">
-                共有幾個結果
+                共有個結果
               </h6>
 
               <div class="btn-group">

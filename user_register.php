@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-// 之後再加上
-// 如果已經登入就不應該再看到sign這一頁，所以就會把這頁導向dashboard
-// if(isset($_SESSION["user"])){
-//   header("location:dashboard.php");
-//   exit;
-// }
+if(isset($_SESSION["user"])){
+  header("location:dashboard.php");
+  exit;
+}
 
 ?>
 <!doctype html>
@@ -61,10 +59,8 @@ session_start();
         max-width: 800px;
         margin: auto;
         padding: 40px;
-        /* border: 1px solid #ccc; */
         border-radius: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        
         color:#fff;
     }
 
@@ -81,23 +77,16 @@ session_start();
       font-size: 30px;
       font-family: 'Noto Sans TC', sans-serif;
       color:#fff;
-      /* padding: 20px; */
-      /* background: rgba(230, 214, 201); */
-
     }
 
     & a:hover{
       color:#fff;
       border:rgba(230, 214, 201, 0.5);
-      /* background: rgba(230, 214, 201, 0.5); */
-      /* padding: 20px; */
     }
 
     & a:active{
       color:#fff;
       border:rgba(230, 214, 201, 0.5);
-      /* background: rgba(230, 214, 201, 0.5); */
-      /* padding: 20px; */
     }
 
     .btn{
@@ -178,9 +167,7 @@ session_start();
             
         </form>
         <hr>
-        <div class="text-center">
-            <a class="small" href="user_signin_forget.php">忘記密碼？</a>
-        </div>
+        
         <div class="text-center">
             <a class="small" href="user_signin.php">已經有帳戶？按此登入</a>
         </div>
@@ -193,7 +180,6 @@ session_start();
 
   </div>
 
-  <!-- 每次重整就清掉錯誤訊息 -->
   <?php
     unset($_SESSION["error"]["message"])
   ?>

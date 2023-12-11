@@ -14,22 +14,8 @@ $email=$_POST["email"];
 $password=$_POST["password"];
 $repassword=$_POST["repassword"];
 
-// var_dump($email);
-
-// 等等試一下這裡不寫時間會怎樣
 date_default_timezone_set('Asia/Taipei');
 $time=date('Y-m-d H:i:s');
-
-
-// echo "$email, $name, $password, $repassword";
-
-// 我們用一個一個寫，不要一次寫全部?
-// if(empty($phone)||empty($email)||empty($name)||empty($password)||empty($repassword)){
-//     echo "尚有未填寫欄位";
-//     exit;
-// }
-
-// echo "$email, $name, $password, $repassword";
 
 if(empty($name)){
     $message="請輸入姓名";

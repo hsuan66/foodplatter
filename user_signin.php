@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-
-// 如果已經登入就不應該再看到sign這一頁，所以就會把這頁導向dashboard
 if(isset($_SESSION["user"])){
     header("location:user_index.php");
     exit;
@@ -161,12 +159,7 @@ if(isset($_SESSION["user"])){
                   if(isset($_SESSION["error"]["message"])):?>
                   <div class="text-warning"><?php echo $_SESSION["error"]["message"] ?></div>
                   <?php endif;?>
-                  <div class="form-group">
-                      <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="customCheck">
-                          <label class="custom-control-label" for="customCheck">記住帳號</label>
-                      </div>
-                  </div>
+                  
                   <button class="btn btn-user btn-block" type="submit">
                       <span class="h6">登入</span>
                   </button>
@@ -175,11 +168,9 @@ if(isset($_SESSION["user"])){
               <?php endif;?>
               
               <hr>
+              
               <div class="text-center">
-                  <a class="small" href="user_signin_forget.php">忘記密碼?</a>
-              </div>
-              <div class="text-center">
-                  <a class="small" href="user_register.php">創建帳戶!</a>
+                  <a class="small" href="user_register.php">還沒有帳戶嗎?點選創建帳戶!</a>
               </div>
           </div>
     

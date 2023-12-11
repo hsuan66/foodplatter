@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// 只要沒有user資料，就要回到登入頁面
 if(!isset($_SESSION["user"])){
     header("location:user_signin.php");
     exit;
@@ -135,9 +134,6 @@ $row=$result->fetch_assoc();
         </div>
 
         
-
-        
-
         <!--分音器-->
         <hr class="sidebar-divider my-0" />
 
@@ -293,6 +289,7 @@ $row=$result->fetch_assoc();
                     </h6>
                     
                   </div>
+
                   <!-- Card Body -->
                   <div class="card-body row pr-5">
                     <div class="col-4 d-flex justify-content-center align-items-center">
@@ -303,103 +300,82 @@ $row=$result->fetch_assoc();
 
                     </div>
 
-                    
-                  
+                    <table class="table col-8">
 
-                  <table class="table col-8">
-                    <tr>
-                      <th scope="row">姓名</th>
-                      <td><?= $row["user_name"]?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">性別</th>
-                      <td><?php 
-                      if($row["user_sex"]== null){
-                        echo "尚未填寫";
-                      }elseif($row["user_sex"]== 0){
-                        echo "生理男";
-                      }elseif($row["user_sex"]== 1){
-                        echo "生理女";
-                      }else{
-                        echo "尚未填寫";
-                      }
-                      ?></td>
-                    </tr>
-        
-                    <tr>
-                      <th scope="row">生日</th>
-                      <td><?php 
-                      if($row["user_birth"]== null || $row["user_birth"]== "0000-00-00"){
-                        echo '尚未填寫';
-                      }else{
-                        echo $row["user_birth"];
-                      }
-                      ?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">信箱</th>
-                      <td><?= $row["user_email"]?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">電話</th>
-                      <td><?= $row["user_phone"]?></td>
-                    </tr>
+                      <tr>
+                        <th scope="row">姓名</th>
+                        <td><?= $row["user_name"]?></td>
+                      </tr>
 
-                    
+                      <tr>
+                        <th scope="row">性別</th>
+                        <td><?php 
+                        if($row["user_sex"]== null){
+                          echo "尚未填寫";
+                        }elseif($row["user_sex"]== 0){
+                          echo "生理男";
+                        }elseif($row["user_sex"]== 1){
+                          echo "生理女";
+                        }else{
+                          echo "尚未填寫";
+                        }
+                        ?></td>
+                      </tr>
+          
+                      <tr>
+                        <th scope="row">生日</th>
+                        <td><?php 
+                        if($row["user_birth"]== null || $row["user_birth"]== "0000-00-00"){
+                          echo '尚未填寫';
+                        }else{
+                          echo $row["user_birth"];
+                        }
+                        ?></td>
+                      </tr>
 
-                    <tr>
-                      <th scope="row">地址</th>
-                      <td><?php 
-                      if($row["user_address_all"]== null || $row["user_address_all"]==""){
-                        echo '尚未填寫';
-                      }else{
-                        echo $row["user_address_all"];
-                      }
+                      <tr>
+                        <th scope="row">信箱</th>
+                        <td><?= $row["user_email"]?></td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">電話</th>
+                        <td><?= $row["user_phone"]?></td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">地址</th>
+                        <td><?php 
+                        if($row["user_address_all"]== null || $row["user_address_all"]==""){
+                          echo '尚未填寫';
+                        }else{
+                          echo $row["user_address_all"];
+                        }
+                        
+                        ?></td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">創建時間</th>
+                        <td><?= $row["created_at"]?></td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">上次修改時間</th>
+                        <td><?php 
+                        if($row["modified_at"]=== null){
+                          echo '尚未修改';
+                        }else{
+                          echo $row["modified_at"];
+                        }
+                        
+                        ?></td>
+                      </tr>
+
                       
-                      ?></td>
-                    </tr>
+                    </table>
 
-                    <tr>
-                      <th scope="row">信用卡</th>
-                      <td><?php 
-                      if($row["credit_card"]=== null){
-                        echo '尚未填寫';
-                      }else{
-                        echo $row["credit_card"];
-                      }
-                      // 待改
-                      ?></td>
-                    </tr>
-
-                    <tr>
-                      <th scope="row">創建時間</th>
-                      <td><?= $row["created_at"]?></td>
-                    </tr>
-
-                    <tr>
-                      <th scope="row">上次修改時間</th>
-                      <td><?php 
-                      if($row["modified_at"]=== null){
-                        echo '尚未修改';
-                      }else{
-                        echo $row["modified_at"];
-                      }
-                      
-                      ?></td>
-                    </tr>
-
-                    
-                  </table>
-
-                  <?php
-                  // var_dump($_SESSION["user"]);
-                  // print_r($_SESSION);
-                  // var_dump($id);
-                  // date_default_timezone_set('Asia/Taipei');
-                  // $time=date('Y-m-d H:i:s');
-                  // var_dump($time);
-                  // var_dump($sql);
-                  ?>
+                
                     
                   </div>
                 </div>
