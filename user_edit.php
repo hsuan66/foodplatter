@@ -380,7 +380,7 @@ $row=$result->fetch_assoc();
                                     </label>
                                   </div>
                                   <div class="form-check">
-                                    <input <?php if($row["user_sex"]==2){echo "checked";}?> class="form-check-input" type="radio" name="sex" id="sex" value=2>
+                                    <input <?php if($row["user_sex"]==2 || $row["user_sex"]==null){echo "checked";}?> class="form-check-input" type="radio" name="sex" id="sex" value=2>
                                     <label class="form-check-label" for="sex">
                                       不填寫
                                     </label>
@@ -398,7 +398,7 @@ $row=$result->fetch_assoc();
                                   </label>
 
                                   <label for="birth2">
-                                    <input id="birth2" type="radio" name="birth0" value=null onclick="removeDateInput('.date1')">
+                                    <input id="birth2" type="radio" name="birth0" value=null onclick="removeDateInput('.date1')" <?php if($row["user_birth"] == null || $row["user_birth"] == "0000-00-00"){ echo "checked";}?>>
                                     不填寫  
                                   </label>
 
@@ -423,19 +423,32 @@ $row=$result->fetch_assoc();
                                 <td>
                                   
                                   <div class="dropdown">
-                                    縣市:
-                                      <select name="county" id="county_box">
+                                    
+                                      <select class="mr-3" name="county" id="county_box">
                                           <option value="">選擇縣市</option>
                                       </select>
-                                    鄉鎮市區:
-                                      <select name="district" id="district_box">
+                                    
+                                      <select class="mr-3" name="district" id="district_box">
                                           <option value="">選擇鄉鎮市區</option>
                                       </select>
                                     詳細地址:
                                       <input type="hidden" id="zipcode_box" name="zip" placeholder="郵遞區號" >
                                   </div>
+                                  <div class="row d-flex align-items-center">
+                                    <div class="col-4 row">
+                                      <div class="col-auto county_box"><?php echo $row["user_county"]?></div>
+                                      <div class="col-auto district_box"><?php echo $row["user_district"]?></div>
+
+                                    </div>
+                                    
+                                    <div class="col-8">
+                                      <input class="form-control mt-3" type="text" name="address" value="<?php echo $row["user_address"]?>">
+
+                                    </div>
+
+                                  </div>
                                   
-                                  <input class="form-control mt-3" type="text" name="address" value="">
+                                  
                                   <input type="hidden" id="countyText" name="county_text" value="">
                                   <input type="hidden" id="districtText" name="district_text" value="">
                                   
@@ -663,6 +676,9 @@ $row=$result->fetch_assoc();
       const countyText = document.querySelector('#countyText');
       const districtText = document.querySelector('#districtText');
 
+      const countyBox = document.querySelector('.county_box');
+      const districtBox = document.querySelector('.district_box');
+
       // 從資料庫中獲取已經選擇的縣市和鄉鎮市區的值
       // const selectedCountyFromDatabase = "<?php //echo $county_text; ?>";
       // const selectedDistrictFromDatabase = "<?php //echo $district_text; ?>";
@@ -690,6 +706,7 @@ $row=$result->fetch_assoc();
           const selectedCountyText = county_box.options[county_box.selectedIndex].text;
           console.log('選擇的縣市：', selectedCountyText);
           countyText.value = selectedCountyText;
+          countyBox.innerText = selectedCountyText;
       })
 
       district_box.addEventListener('change', () => {
@@ -701,6 +718,7 @@ $row=$result->fetch_assoc();
           const selectedDistrictText = district_box.options[district_box.selectedIndex].text;
           console.log('選擇的鄉鎮市區：', selectedDistrictText);
           districtText.value = selectedDistrictText;
+          districtBox.innerText = selectedDistrictText;
       })
 
       
@@ -724,6 +742,7 @@ $row=$result->fetch_assoc();
         var removeInput = document.querySelector(removeId);
         if (removeInput) {
             removeInput.setAttribute('readonly','true');
+            removeInput.value = '';
         }
       }
     </script>

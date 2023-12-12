@@ -28,6 +28,14 @@ if($_POST["sex"]==""){
 //     $_POST["birth"]=null;
 // }
 
+if($_POST["county_text"]==""){
+    $_POST["county_text"]=$row["user_county"];
+}
+
+if($_POST["district_text"]==""){
+    $_POST["district_text"]=$row["user_district"];
+}
+
 $id=$_POST["id"];
 $head=$_POST["head"];
 $name=$_POST["name"];
@@ -44,6 +52,53 @@ $zip=$_POST["zip"];
 
 // date_default_timezone_set('Asia/Taipei');
 $time=date('Y-m-d H:i:s');
+
+function email($emailcheck){
+    $emailPattern = '/^\w+([-+.]?\w+)*@[a-zA-Z]+([-.][a-zA-Z]+)*\.[a-zA-Z]+$/';
+    if (preg_match($emailPattern, $emailcheck)) {
+        return true; // 驗證通過
+    }
+};
+
+if(email($email)){
+
+}else{
+    $message="請輸入正確信箱格式";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    // echo "請輸入email";
+    exit;
+}
+
+function phone($phonecheck){
+    $phonePattern = '/^09\d{8}$/';
+    if (preg_match($phonePattern, $phonecheck)) {
+        return true; // 驗證通過
+    }
+};
+
+if(phone($phone)){
+
+}else{
+    $message="請輸入正確電話格式";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    // echo "請輸入email";
+    exit;
+}
+
+$emailsql="SELECT * FROM users WHERE user_email='$email'";
+$emailresult=$conn->query($emailsql);
+$emailrowCount=$emailresult->num_rows;
+echo $emailrowCount;
+// 這裡偵測是1因為已經有一筆他自己的
+if($emailrowCount>1){
+    $message="此帳號已經存在";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_edit.php");
+    exit;
+    
+}
 
 if(empty($name)){
     $message="請輸入姓名";
@@ -71,7 +126,7 @@ if(empty($phone)){
 }
 
 
-$sql = "UPDATE users SET user_img='$head', user_name='$name', user_sex='$sex', user_birth='$birth', user_phone='$phone', user_email='$email',modified_at='$time', user_cities='$zip',user_address_all='$county_text$district_text$address', user_address='$address' WHERE user_id=$id";
+$sql = "UPDATE users SET user_img='$head', user_name='$name', user_sex='$sex', user_birth='$birth', user_phone='$phone', user_email='$email',modified_at='$time', user_cities='$zip',user_address_all='$county_text$district_text$address', user_address='$address', user_county='$county_text', user_district='$district_text' WHERE user_id=$id";
 
 var_dump($sql);
 

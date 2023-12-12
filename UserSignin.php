@@ -20,6 +20,25 @@ if(empty($email)){
     exit;
 }
 
+// email檢測:
+// @前面的使用者名稱可以以任何字串設定，一定要有@，@後面的字一定要以.連接
+function email($emailcheck){
+    $emailPattern = '/^\w+([-+.]?\w+)*@[a-zA-Z]+([-.][a-zA-Z]+)*\.[a-zA-Z]+$/';
+    if (preg_match($emailPattern, $emailcheck)) {
+        return true; // 驗證通過
+    }
+};
+
+if(email($email)){
+
+}else{
+    $message="請輸入正確信箱格式";
+    $_SESSION["error"]["message"]=$message;
+    header("location:user_signin.php");
+    // echo "請輸入email";
+    exit;
+}
+
 if(empty($password)){
     $message="請輸入密碼";
     $_SESSION["error"]["message"]=$message;

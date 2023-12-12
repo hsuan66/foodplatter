@@ -140,11 +140,11 @@ if(isset($_SESSION["user"])){
                 </div>
                 <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" id="phone" name="phone"
-                        placeholder="電話">
+                        placeholder="手機">
                 </div>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control form-control-user" id="email" name="email"
+                <input type="text" class="form-control form-control-user" id="email" name="email"
                     placeholder="信箱">
             </div>
             <div class="form-group row">

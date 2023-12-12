@@ -147,7 +147,7 @@ if(isset($_SESSION["user"])){
               <?php else:?>
               <form class="user" action="UserSignin.php" method="post">
                   <div class="form-group">
-                      <input type="email" class="form-control form-control-user"
+                      <input type="text" class="form-control form-control-user"
                           id="email" name="email" aria-describedby="emailHelp"
                           placeholder="請輸入電子郵件地址">
                   </div>
