@@ -184,6 +184,23 @@ if(isset($_SESSION["user"])){
     unset($_SESSION["error"]["message"]);
   ?>
 
+  <script>
+    const eye=document.querySelector(".eye")
+    const passwordinput=document.querySelector(".passwordinput")
+
+    eye.addEventListener("click",function(e){
+        e.stopPropagation()
+        // 用事件物件阻止他?
+        console.log("toggle click");
+        let menuStatus=menu.innerText;
+        if(menuStatus=="open"){
+            menu.innerText="close";
+        }else{
+            menu.innerText="open";
+        }
+    })
+  </script>
+
   
   
   

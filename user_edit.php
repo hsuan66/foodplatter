@@ -16,6 +16,8 @@ $result=$conn->query($sql);
 $userCount=$result->num_rows;
 $row=$result->fetch_assoc();
 
+$time=date('Y-m-d');
+
 ?>
 
 <!DOCTYPE html>
@@ -393,7 +395,7 @@ $row=$result->fetch_assoc();
                                 <td class="d-flex">
                                   <label for="birth1" class="mr-5">
                                     <input id="birth1" type="radio" name="birth0" value="1" onclick="enableDateInput('.date1')" <?php if($row["user_birth"] !== null || $row["user_birth"] !== "0000-00-00"){ echo "checked";}?>>
-                                    <input type="date" name="birth" class="date1" value="<?=$row["user_birth"]?>" readonly>
+                                    <input type="date" name="birth" class="date1" value="<?=$row["user_birth"]?>" max="<?=$time?>" readonly>
                                       
                                   </label>
 
